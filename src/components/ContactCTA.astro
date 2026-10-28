@@ -1,4 +1,6 @@
 ---
 import Icon from './Icon.astro';
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
 ---
-<section class="container contact-cta" data-reveal><div><p class="eyebrow">THE NEXT CONVERSATION</p><h2>Ideas are better<br />when they're shared.</h2><p>Interested in security, software, or a problem worth exploring?</p></div><a class="button button-primary" href="/contact/">Let's connect <Icon /></a></section>
+<section class:list={['container', 'contact-cta', { 'contact-cta-compact': compact }]} data-reveal><div>{compact ? <h2>Have something in mind?</h2> : <><p class="eyebrow">THE NEXT CONVERSATION</p><h2>Ideas are better<br />when they're shared.</h2><p>Interested in security, software, or a problem worth exploring?</p></>}</div><a class="button button-primary" href="/contact/">Let's connect <Icon /></a></section>

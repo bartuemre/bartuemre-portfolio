@@ -65,7 +65,7 @@ This local npm bootstrap is not needed by another developer or Cloudflare with a
 
 | Route | Source / purpose |
 | --- | --- |
-| `/` | `src/pages/index.astro`: hero, featured work, focus areas, contact CTA |
+| `/` | `src/pages/index.astro`: concise hero, two featured projects, short contact CTA |
 | `/about/` | `src/pages/about.astro`: student background and interests |
 | `/projects/` | `src/pages/projects/index.astro`: project collection |
 | `/projects/[slug]/` | Markdown-driven project detail pages |
