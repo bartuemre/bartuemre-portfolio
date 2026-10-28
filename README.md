@@ -54,7 +54,7 @@ This local npm bootstrap is not needed by another developer or Cloudflare with a
 
 ## Design and architecture
 
-- Editorial typography, generous spacing, restrained blue/green accents, and original SVG concept diagrams connect the three disciplines without pretending to show running security systems or real product screenshots.
+- Editorial typography, generous spacing, warm charcoal surfaces, muted brick-red accents, and original SVG concept diagrams connect the three disciplines without pretending to show running security systems or real product screenshots. The light theme uses warm ivory and deeper brick red. Home keeps only the introduction, selected work, and a brief contact invitation; longer explanations live on the inner pages.
 - System fonts keep requests local. Static Astro pages avoid a hydrated framework or SPA. One small TypeScript module handles theme, mobile navigation, and progressive scroll reveals; CSS supplies ambient motion and native cross-document transitions where supported.
 - Tailwind 4 uses its official Vite plugin. Shared CSS variables handle both themes; utility classes support local spacing. Theme selection runs before styles paint, honors the system preference, and persists a visitor's override. Blocked browser storage is handled safely.
 - Navigation, content, and links work without JavaScript. Reduced motion disables decoration, transitions, and scroll effects. A skip link, focus styles, semantic headings, active navigation, and keyboard menu controls support accessible use.
