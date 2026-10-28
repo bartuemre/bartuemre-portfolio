@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeading from '../../components/PageHeading.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Projects" description="Explore Bartu Emre's projects in security decision support, optimization, and literature research software.">
+  <PageHeading eyebrow="PROJECTS / IDEAS INTO PRACTICE" title="Built around a question." description="A growing collection of projects across cybersecurity, software, and optimization. Each one starts with something worth understanding." />
+  <section class="container section-bottom" aria-labelledby="project-list-heading"><div class="collection-topline"><h2 id="project-list-heading">The collection</h2><span class="microcopy">{String(projects.length).padStart(2, '0')} PROJECTS / WORK IN PROGRESS</span></div><div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div><p class="collection-note">Project pages describe their current scope and status. Repository links appear where available.</p></section>
+  <ContactCTA />
+</BaseLayout>
