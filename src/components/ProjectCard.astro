@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import ProjectVisual from './ProjectVisual.astro';
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const { data } = project;
+---
+<article class="project-card" data-reveal>
+  <a href={`/projects/${project.id}/`} class="project-image-link" tabindex="-1" aria-hidden="true"><ProjectVisual kind={data.visual} /></a>
+  <div class="project-content">
+    <p class="project-category">{data.category}</p>
+    <h3><a href={`/projects/${project.id}/`}>{data.title}<Icon name="external" size={24} /></a></h3>
+    <p class="project-summary">{data.summary}</p>
+    <ul class="tag-list" aria-label="Project topics">{data.tags.map((tag) => <li>{tag}</li>)}</ul>
+    <div class="project-bottom"><span class="project-status"><span aria-hidden="true" class="status-dot"></span>{data.status}</span><span class="project-index" aria-hidden="true">0{data.order}</span></div>
+  </div>
+</article>

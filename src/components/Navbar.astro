@@ -1,0 +1,15 @@
+---
+import { navigation } from '../data/profile';
+import ThemeToggle from './ThemeToggle.astro';
+import Icon from './Icon.astro';
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container nav-shell">
+    <a class="wordmark" href="/" aria-label="Bartu Emre — Home"><span class="brand-mark" aria-hidden="true">be<span>.</span></span><span>Bartu Emre<span class="brand-dot">.</span></span></a>
+    <nav id="primary-navigation" aria-label="Main navigation">
+      {navigation.map(({ href, label }) => <a href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a>)}
+    </nav>
+    <div class="nav-controls"><ThemeToggle /><button id="menu-toggle" class="icon-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation" hidden><Icon name="menu" /></button></div>
+  </div>
+</header>

@@ -1,0 +1,8 @@
+---
+import { profile } from '../data/profile';
+import Icon from './Icon.astro';
+---
+<footer class="site-footer">
+  <div class="container footer-main"><a href="/" class="wordmark">Bartu Emre<span class="brand-dot">.</span></a><p>Curiosity, built into practice.</p><a class="text-link" href={profile.github} target="_blank" rel="noopener noreferrer">GitHub <Icon name="external" size={17} /><span class="sr-only"> (opens in a new tab)</span></a></div>
+  <div class="container footer-bottom"><span>© {new Date().getUTCFullYear()} Bartu Emre</span><span>Cybersecurity · Software · Optimization</span><a href="#top">Back to top ↑</a></div>
+</footer>

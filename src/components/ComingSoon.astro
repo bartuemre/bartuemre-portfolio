@@ -1,0 +1,7 @@
+---
+import Icon from './Icon.astro';
+interface Props { type: 'lab' | 'blog'; }
+const { type } = Astro.props;
+const lab = type === 'lab';
+---
+<section class="container section-bottom"><div class="coming-soon"><div class="coming-symbol" aria-hidden="true">{lab ? '[ >_ ]' : '{ … }'}</div><div><p class="eyebrow">A SPACE FOR WHAT COMES NEXT</p><h2>{lab ? 'Notes from the learning process.' : 'Ideas, with room to develop.'}</h2><p>{lab ? 'This space will hold technical lab notes and writeups as they are ready to share. The focus will be Blue Team, detection engineering, and security learning.' : 'A future home for writing about software, cybersecurity, optimization, and the connections between them.'}</p><p class="publication-status">No {lab ? 'lab writeups' : 'articles'} published yet.</p><a href="/projects/" class="text-link">Explore current projects <Icon /></a></div></div></section>
