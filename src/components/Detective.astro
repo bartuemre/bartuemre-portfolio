@@ -1,10 +1,38 @@
-<div class="detective" id="mouse-detective" aria-hidden="true"><div class="detective-bubble">tracking signal</div><div class="detective-figure"><span class="detective-hat"></span><span class="detective-face">◡</span><span class="detective-coat"></span></div></div>
+<div class="detective" id="mouse-detective" aria-hidden="true">
+  <svg class="detective-art" viewBox="0 0 150 190" fill="none">
+    <ellipse cx="76" cy="181" rx="51" ry="6" fill="currentColor" opacity=".16" />
+    <path d="M38 180c2-36 12-58 29-67h19c20 10 29 31 31 67H38Z" fill="var(--surface)" stroke="currentColor" stroke-width="3" />
+    <path d="m55 116 20 26 21-26" stroke="currentColor" stroke-width="3" />
+    <path d="M74 142h3v38h-3z" fill="currentColor" opacity=".65" />
+    <g id="detective-head" style="transform-origin: 76px 76px">
+      <path d="M49 69c0-25 11-40 27-40s27 15 27 40c0 23-11 35-27 35S49 92 49 69Z" fill="var(--surface)" stroke="currentColor" stroke-width="3" />
+      <path d="M43 49c3-19 14-31 33-31 18 0 30 10 34 31-19-7-46-7-67 0Z" fill="var(--accent)" stroke="currentColor" stroke-width="3" />
+      <path d="M38 48c18-8 57-8 77 0" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+      <path d="M58 68c5-4 10-4 15 0M81 68c5-4 10-4 15 0" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      <g class="detective-eyes">
+        <ellipse cx="66" cy="76" rx="7" ry="5" fill="var(--bg)" stroke="currentColor" stroke-width="2" />
+        <ellipse cx="87" cy="76" rx="7" ry="5" fill="var(--bg)" stroke="currentColor" stroke-width="2" />
+        <circle class="detective-pupil left" cx="66" cy="76" r="2.5" fill="var(--accent)" />
+        <circle class="detective-pupil right" cx="87" cy="76" r="2.5" fill="var(--accent)" />
+      </g>
+      <path d="M72 90c3 2 6 2 9 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <path d="M59 103h34l-5 18H64l-5-18Z" fill="var(--accent)" opacity=".85" />
+    </g>
+    <path d="M35 124 18 145M113 124l16 21" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+    <circle cx="17" cy="146" r="5" fill="var(--accent)" stroke="currentColor" stroke-width="2" />
+  </svg>
+</div>
 <script is:inline>
-  const detective = document.querySelector('#mouse-detective');
-  let targetX = 22, targetY = window.innerHeight - 86, x = targetX, y = targetY;
+  const head = document.querySelector('#detective-head');
+  const pupils = document.querySelectorAll('.detective-pupil');
   window.addEventListener('pointermove', (event) => {
-    targetX = Math.min(window.innerWidth - 74, Math.max(10, event.clientX * .12));
-    targetY = Math.min(window.innerHeight - 72, Math.max(10, window.innerHeight - 92 + event.clientY * .06));
+    const anchor = { x: 76, y: window.innerHeight - 112 };
+    const dx = event.clientX - anchor.x;
+    const dy = event.clientY - anchor.y;
+    const angle = Math.max(-8, Math.min(8, dx * .025));
+    head?.setAttribute('style', `transform: rotate(${angle}deg)`);
+    const lookX = Math.max(-2.2, Math.min(2.2, dx / 150));
+    const lookY = Math.max(-1.5, Math.min(1.5, dy / 180));
+    pupils.forEach((pupil) => pupil.setAttribute('transform', `translate(${lookX} ${lookY})`));
   }, { passive: true });
-  const follow = () => { x += (targetX - x) * .1; y += (targetY - y) * .1; if (detective) detective.style.transform = `translate3d(${x}px, ${y}px, 0)`; requestAnimationFrame(follow); }; follow();
 </script>
