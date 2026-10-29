@@ -1,16 +1,22 @@
 ---
 ---
 <div class="systems-map" aria-hidden="true">
-  <svg class="orbital-map" viewBox="0 0 480 420" fill="none">
-    <defs><radialGradient id="ambient"><stop stop-color="var(--accent)" stop-opacity=".14" /><stop offset="1" stop-color="var(--accent)" stop-opacity="0" /></radialGradient></defs>
+  <svg class="orbital-map" viewBox="0 0 480 420" fill="none" role="presentation">
+    <defs>
+      <radialGradient id="ambient" cx="50%" cy="45%"><stop stop-color="var(--accent)" stop-opacity=".22" /><stop offset=".55" stop-color="var(--accent)" stop-opacity=".05" /><stop offset="1" stop-color="var(--accent)" stop-opacity="0" /></radialGradient>
+      <linearGradient id="core" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--surface)" /><stop offset="1" stop-color="var(--surface-soft)" /></linearGradient>
+      <clipPath id="core-avatar-clip"><circle cx="240" cy="210" r="27" /></clipPath>
+      <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+      <filter id="particle-glow" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="2.5" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+    </defs>
     <circle cx="240" cy="210" r="205" fill="url(#ambient)" />
-    <g stroke="currentColor" opacity=".2"><path d="M30 210h420M240 15v390" stroke-dasharray="3 7" /><circle cx="240" cy="210" r="164" /><circle cx="240" cy="210" r="118" /><circle cx="240" cy="210" r="65" /><ellipse cx="240" cy="210" rx="164" ry="57" transform="rotate(-35 240 210)" /></g>
-    <g class="orbit-ring" stroke="var(--accent)" stroke-width="2"><circle cx="240" cy="210" r="164" stroke-dasharray="80 950" /><circle cx="404" cy="210" r="4" fill="var(--accent)" stroke="none" /></g>
-    <path d="m140 115 197 62-60 155-137-217Z" stroke="var(--accent)" stroke-opacity=".6" />
-    <path d="m140 115 100 95 97-33M240 210l37 122" stroke="var(--accent)" stroke-opacity=".4" stroke-dasharray="4 5" />
-    <circle cx="240" cy="210" r="28" fill="var(--surface)" stroke="var(--accent)" /><text x="240" y="216" text-anchor="middle" fill="var(--text)" font-size="18" font-family="monospace">be.</text>
-    <g fill="var(--surface)" stroke="var(--accent)"><rect x="88" y="94" width="104" height="42" rx="5" /><rect x="285" y="156" width="104" height="42" rx="5" /><rect x="215" y="311" width="124" height="42" rx="5" /></g>
-    <g fill="var(--text)" text-anchor="middle" font-family="monospace" font-size="12"><text x="140" y="120">SECURITY</text><text x="337" y="182">SOFTWARE</text><text x="277" y="337">OPTIMIZATION</text></g>
-    <g fill="var(--success)"><circle cx="140" cy="94" r="3" /><circle cx="389" cy="177" r="3" /><circle cx="277" cy="353" r="3" /></g>
+    <g class="orbital-grid" stroke="currentColor" opacity=".18"><path d="M30 210h420M240 15v390" stroke-dasharray="3 8" /><circle cx="240" cy="210" r="164" /><circle cx="240" cy="210" r="118" /><circle cx="240" cy="210" r="65" /></g>
+    <g class="atom-orbit atom-orbit-a"><ellipse cx="240" cy="210" rx="164" ry="58" transform="rotate(-28 240 210)" /><circle class="orbit-particle particle-a" cx="398" cy="136" r="5" /><circle class="particle-halo" cx="398" cy="136" r="11" /></g>
+    <g class="atom-orbit atom-orbit-b"><ellipse cx="240" cy="210" rx="144" ry="48" transform="rotate(32 240 210)" /><circle class="orbit-particle particle-b" cx="116" cy="132" r="4" /><circle class="particle-halo" cx="116" cy="132" r="10" /></g>
+    <g class="atom-orbit atom-orbit-c"><ellipse cx="240" cy="210" rx="178" ry="72" transform="rotate(82 240 210)" /><circle class="orbit-particle particle-c" cx="240" cy="32" r="4.5" /><circle class="particle-halo" cx="240" cy="32" r="10" /></g>
+    <g class="core-system" filter="url(#soft-glow)"><circle cx="240" cy="210" r="45" fill="var(--surface-soft)" opacity=".7" /><circle cx="240" cy="210" r="31" fill="url(#core)" stroke="var(--accent)" stroke-width="1.5" /><image class="core-avatar" href="https://avatars.githubusercontent.com/u/126015307?v=4" x="213" y="183" width="54" height="54" preserveAspectRatio="xMidYMid slice" clip-path="url(#core-avatar-clip)" /><circle cx="240" cy="210" r="28" stroke="var(--accent)" stroke-opacity=".5" stroke-width="2" /></g>
+    <g class="system-card" fill="var(--surface)" stroke="var(--accent)" stroke-opacity=".7"><rect x="61" y="74" width="114" height="43" rx="7" /><rect x="306" y="155" width="114" height="43" rx="7" /><rect x="183" y="329" width="135" height="43" rx="7" /></g>
+    <g class="system-card-text" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="10" letter-spacing=".6"><text x="118" y="100">SECURITY</text><text x="363" y="181">SOFTWARE</text><text x="250" y="355">OPTIMIZATION</text></g>
+    <g class="status-nodes" fill="var(--success)" filter="url(#particle-glow)"><circle cx="61" cy="74" r="3" /><circle cx="420" cy="177" r="3" /><circle cx="250" cy="372" r="3" /></g>
   </svg>
 </div>
