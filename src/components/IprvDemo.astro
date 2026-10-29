@@ -1,0 +1,23 @@
+<section class="iprv-demo" aria-labelledby="iprv-demo-title">
+  <div class="iprv-demo-heading"><div><p class="eyebrow">IN-PAGE WORKSPACE</p><h2 id="iprv-demo-title">Check an indicator<span class="accent-text">.</span></h2></div><span class="microcopy">IPRV / v0.4.7</span></div>
+  <form id="iprv-form" class="iprv-form"><label for="iprv-input">IPv4, IPv6, or CIDR</label><div class="iprv-input-row"><input id="iprv-input" name="indicator" inputmode="text" autocomplete="off" placeholder="e.g. 203.0.113.42" required /><button class="button button-primary" type="submit">Validate</button></div></form>
+  <div id="iprv-result" class="iprv-result" role="status" aria-live="polite"><span class="iprv-result-mark">?</span><div><strong>Waiting for an indicator</strong><p>Enter an address to inspect its shape and context in the browser.</p></div></div>
+</section>
+<script is:inline>
+  const form = document.querySelector('#iprv-form');
+  const input = document.querySelector('#iprv-input');
+  const result = document.querySelector('#iprv-result');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const value = input.value.trim();
+    const ipv4 = /^(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)(?:\.|$)){4}$/.test(value.split('/')[0]);
+    const ipv6 = value.includes(':') && /^[0-9a-f:]+(?:\/\d{1,3})?$/i.test(value);
+    const cidr = value.includes('/');
+    const valid = ipv4 || ipv6;
+    if (!valid) { result.className = 'iprv-result is-warning'; result.innerHTML = '<span class="iprv-result-mark">!</span><div><strong>Needs a valid indicator</strong><p>Use an IPv4, IPv6, or CIDR value. No data was sent anywhere.</p></div>'; return; }
+    const privateAddress = /^(10\.|127\.|192\.168\.|172\.(?:1[6-9]|2\d|3[0-1])\.)/.test(value);
+    const context = privateAddress ? 'PRIVATE / LOCAL CONTEXT' : cidr ? 'NETWORK RANGE' : 'GLOBAL LOOKUP ELIGIBLE';
+    result.className = 'iprv-result is-valid';
+    result.innerHTML = `<span class="iprv-result-mark">✓</span><div><strong>${context}</strong><p><code>${value.replaceAll('&', '&amp;').replaceAll('<', '&lt;')}</code> is structurally valid. The full IPRV app adds source evidence and history.</p></div>`;
+  });
+</script>

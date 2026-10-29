@@ -14,7 +14,7 @@ const projects = defineCollection({
     order: z.number(),
     repository: z.url().optional(),
     demo: z.url().optional(),
-    visual: z.enum(['soc', 'research']),
+    visual: z.enum(['soc', 'research', 'iprv']),
   }),
 });
 

@@ -4,8 +4,8 @@ summary: A literature research web app connecting discovery, filtering, and DOI,
 category: Software & research
 status: Working title · Link pending
 tags: [OpenAlex workflows, Literature research, Web application]
-featured: true
-order: 2
+featured: false
+order: 3
 visual: research
 ---
 
