@@ -102,7 +102,7 @@ h3 { font-size: 1.6rem; }
 .systems-map::after { bottom: -12px; right: -4px; }
 .map-topline, .map-bottomline { display: flex; justify-content: space-between; gap: 10px; padding-inline: 15px; font-size: .55rem; }
 .map-bottomline { border-top: 1px solid var(--line); padding-top: 15px; }
-.orbital-map { display: block; width: 100%; transform: perspective(900px) rotateX(4deg); transform-origin: 50% 50%; }
+.orbital-map { display: block; width: 100%; shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
 .orbital-grid { transform-origin: 240px 210px; animation: grid-drift 18s ease-in-out infinite alternate; }
 .atom-orbit { transform-origin: 240px 210px; fill: none; stroke: var(--accent); stroke-opacity: .42; stroke-width: 1.5; }
 .atom-orbit-a { animation: atom-spin-a 18s linear infinite; }
