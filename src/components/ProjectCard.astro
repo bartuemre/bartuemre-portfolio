@@ -15,5 +15,6 @@ const { data } = project;
     {!compact && <ul class="tag-list" aria-label="Project topics">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
     <div class="project-bottom"><span class="project-status"><span aria-hidden="true" class="status-dot"></span>{data.status}</span>{!compact && <span class="project-index" aria-hidden="true">0{data.order}</span>}</div>
     {!compact && data.demo && <a class="button button-primary project-card-action" href={data.demo} target="_blank" rel="noopener noreferrer">Go project <Icon name="external" /><span class="sr-only"> (opens in a new tab)</span></a>}
+    {!compact && <a class="button button-quiet project-card-action" href={`/projects/${project.id}/`} target="_blank" rel="noopener noreferrer">Open project <Icon name="external" /><span class="sr-only"> (opens in a new tab)</span></a>}
   </div>
 </article>

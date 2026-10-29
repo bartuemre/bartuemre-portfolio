@@ -6,7 +6,7 @@ const path = Astro.url.pathname;
 ---
 <header class="site-header">
   <div class="container nav-shell">
-    <a class="wordmark" href="/" aria-label="Bartu Emre — Home"><span class="brand-mark" aria-hidden="true">be<span>.</span></span><span>Bartu Emre<span class="brand-dot">.</span></span></a>
+    <a class="wordmark" href="/" aria-label="Bartu Emre — Home"><img class="profile-avatar" src="https://avatars.githubusercontent.com/u/126015307?v=4" alt="" width="34" height="34" /><span>Bartu Emre<span class="brand-dot">.</span></span></a>
     <nav id="primary-navigation" aria-label="Main navigation">
       {navigation.map(({ href, label }) => <a href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a>)}
     </nav>
