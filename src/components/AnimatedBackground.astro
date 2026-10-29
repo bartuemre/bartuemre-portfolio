@@ -15,10 +15,33 @@
     <g class="atom-orbit atom-orbit-a"><ellipse cx="240" cy="210" rx="164" ry="58" transform="rotate(-28 240 210)" /><circle class="orbit-particle particle-a" cx="398" cy="136" r="5" /><circle class="particle-halo" cx="398" cy="136" r="11" /></g>
     <g class="atom-orbit atom-orbit-b"><ellipse cx="240" cy="210" rx="144" ry="48" transform="rotate(32 240 210)" /><circle class="orbit-particle particle-b" cx="116" cy="132" r="4" /><circle class="particle-halo" cx="116" cy="132" r="10" /></g>
     <g class="atom-orbit atom-orbit-c"><ellipse cx="240" cy="210" rx="178" ry="72" transform="rotate(82 240 210)" /><circle class="orbit-particle particle-c" cx="240" cy="32" r="4.5" /><circle class="particle-halo" cx="240" cy="32" r="10" /></g>
-    <g class="core-system" filter="url(#soft-glow)"><circle cx="240" cy="210" r="58" fill="var(--surface-soft)" opacity=".72" /><circle cx="240" cy="210" r="42" fill="url(#core)" stroke="var(--accent)" stroke-width="2" /><circle cx="240" cy="210" r="30" stroke="var(--accent)" stroke-opacity=".5" stroke-dasharray="2 5" /><text x="240" y="216" text-anchor="middle" fill="var(--text)" font-size="20" font-family="var(--font-display)" font-weight="600">be.</text></g>
-    <g class="profile-orbit"><ellipse cx="240" cy="210" rx="128" ry="48" transform="rotate(-24 240 210)" /><image class="core-avatar orbit-avatar" href="https://avatars.githubusercontent.com/u/126015307?v=4" x="355" y="142" width="42" height="42" preserveAspectRatio="xMidYMid slice" clip-path="url(#orbit-avatar-clip)" /></g>
+    <g class="core-system" filter="url(#soft-glow)"><circle cx="240" cy="210" r="58" fill="var(--surface-soft)" opacity=".72" /><circle cx="240" cy="210" r="42" fill="url(#core)" stroke="var(--accent)" stroke-width="2" /><circle cx="240" cy="210" r="30" stroke="var(--accent)" stroke-opacity=".5" stroke-dasharray="2 5" /></g>
+    <g class="profile-orbit" fill="none">
+      <path class="star-orbit" d="M240 94 L270 158 L339 166 L287 211 L305 280 L240 242 L175 280 L193 211 L141 166 L210 158 Z" />
+      <path class="star-orbit" d="M240 105 L277 180 L320 138 L300 205 L359 228 L294 236 L278 302 L240 248 L202 302 L186 236 L121 228 L180 205 L160 138 L203 180 Z" />
+      <path class="star-orbit" d="M240 116 L257 177 L324 164 L274 207 L322 263 L257 244 L240 306 L223 244 L158 263 L206 207 L156 164 L223 177 Z" />
+      <g class="orbit-avatar"><image class="core-avatar" href="https://avatars.githubusercontent.com/u/126015307?v=4" x="219" y="189" width="42" height="42" preserveAspectRatio="xMidYMid slice" clip-path="url(#core-avatar-clip)" /><animateMotion id="profile-motion" dur="7s" repeatCount="indefinite" rotate="0" path="M0 -116 L30 -52 L99 -44 L47 1 L65 70 L0 32 L-65 70 L-47 1 L-99 -44 L-30 -52 Z" /></g>
+    </g>
     <g class="system-card" fill="var(--surface)" stroke="var(--accent)" stroke-opacity=".7"><rect x="96" y="126" width="114" height="43" rx="7" /><rect x="300" y="166" width="114" height="43" rx="7" /><rect x="183" y="278" width="135" height="43" rx="7" /></g>
     <g class="system-card-text" fill="var(--text)" text-anchor="middle" font-family="var(--font-display)" font-size="12" font-weight="600" letter-spacing=".2"><text x="153" y="152">SECURITY</text><text x="357" y="192">SOFTWARE</text><text x="250" y="304">OPTIMIZATION</text></g>
     <g class="status-nodes" fill="var(--success)" filter="url(#particle-glow)"><circle cx="96" cy="126" r="3" /><circle cx="414" cy="188" r="3" /><circle cx="250" cy="321" r="3" /></g>
   </svg>
+  <script>
+    const profileMotion = document.getElementById('profile-motion') as SVGAnimateMotionElement | null;
+    const starPaths = [
+      'M0 -116 L30 -52 L99 -44 L47 1 L65 70 L0 32 L-65 70 L-47 1 L-99 -44 L-30 -52 Z',
+      'M0 -105 L37 -30 L80 -72 L60 -5 L119 18 L54 26 L38 92 L0 38 L-38 92 L-54 26 L-119 18 L-60 -5 L-80 -72 L-37 -30 Z',
+      'M0 -94 L17 -33 L84 -46 L34 -3 L82 53 L17 34 L0 96 L-17 34 L-82 53 L-34 -3 L-84 -46 L-17 -33 Z',
+    ];
+    if (profileMotion) {
+      let previous = -1;
+      window.setInterval(() => {
+        let next = Math.floor(Math.random() * starPaths.length);
+        while (next === previous) next = Math.floor(Math.random() * starPaths.length);
+        previous = next;
+        profileMotion.setAttribute('path', starPaths[next]);
+        profileMotion.beginElement();
+      }, 7000);
+    }
+  </script>
 </div>
