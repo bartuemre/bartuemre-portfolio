@@ -7,10 +7,10 @@ const { project, compact = false } = Astro.props;
 const { data } = project;
 ---
 <article class:list={['project-card', { 'project-card-compact': compact }]} data-reveal>
-  <a href={`/projects/${project.id}/`} class="project-image-link" tabindex="-1" aria-hidden="true"><ProjectVisual kind={data.visual} compact={compact} /></a>
+  <a href={`/projects/${project.id}/`} class="project-image-link" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><ProjectVisual kind={data.visual} compact={compact} /></a>
   <div class="project-content">
     {!compact && <p class="project-category">{data.category}</p>}
-    <h3><a href={`/projects/${project.id}/`}>{data.title}<Icon name="external" size={24} /></a></h3>
+    <h3><a href={`/projects/${project.id}/`} target="_blank" rel="noopener noreferrer" aria-label={`Open ${data.title} project in a new tab`}>{data.title}<Icon name="external" size={24} /><span class="sr-only"> (opens in a new tab)</span></a></h3>
     <p class="project-summary">{data.summary}</p>
     {!compact && <ul class="tag-list" aria-label="Project topics">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
     <div class="project-bottom"><span class="project-status"><span aria-hidden="true" class="status-dot"></span>{data.status}</span>{!compact && <span class="project-index" aria-hidden="true">0{data.order}</span>}</div>

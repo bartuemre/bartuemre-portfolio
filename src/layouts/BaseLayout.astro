@@ -1,6 +1,7 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import Detective from '../components/Detective.astro';
 import { profile } from '../data/profile';
 import '../styles/global.css';
 interface Props { title: string; description?: string; noindex?: boolean; }
@@ -41,6 +42,7 @@ const fullTitle = `${title} | ${profile.name}`;
     <Navbar />
     <main id="main-content" tabindex="-1"><slot /></main>
     <Footer />
+    <Detective />
     <script src="../scripts/site.ts"></script>
   </body>
 </html>
