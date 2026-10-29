@@ -146,10 +146,13 @@ h3 { font-size: 1.6rem; }
 .iprv-result.is-valid .iprv-result-mark { background: var(--success); color: var(--bg); }
 .iprv-result.is-warning { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
 .iprv-result.is-warning .iprv-result-mark { background: var(--accent); color: var(--button-text); }
-.detective { position: fixed; left: 0; bottom: 0; z-index: 25; pointer-events: none; width: 88px; height: 76px; transform: translate3d(0,0,0); }
+.detective { position: fixed; left: 0; top: 0; z-index: 25; pointer-events: none; width: 88px; height: 76px; transform: translate3d(22px,calc(100vh - 86px),0); will-change: transform; }
 .detective-bubble { position: absolute; left: 28px; bottom: 64px; opacity: 0; transform: translateY(5px); transition: opacity .25s, transform .25s; white-space: nowrap; padding: 5px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--muted); font: .55rem var(--font-mono); }
 .detective:hover .detective-bubble { opacity: 1; transform: none; }
-.detective-figure { position: absolute; left: 16px; bottom: 8px; width: 34px; height: 47px; color: var(--accent); }
+.detective-figure { position: absolute; left: 16px; bottom: 8px; width: 34px; height: 47px; color: var(--accent); animation: detective-float 2.8s ease-in-out infinite; }
+.detective-figure::after { content: ''; position: absolute; left: 6px; bottom: -5px; width: 22px; height: 5px; border-radius: 50%; background: color-mix(in srgb, var(--accent) 22%, transparent); animation: detective-shadow 2.8s ease-in-out infinite; }
+@keyframes detective-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-5px) rotate(2deg); } }
+@keyframes detective-shadow { 0%, 100% { transform: scaleX(1); opacity: .65; } 50% { transform: scaleX(.78); opacity: .35; } }
 .detective-hat { position: absolute; left: 1px; top: 0; width: 32px; height: 10px; border-radius: 12px 12px 3px 3px; background: var(--accent); transform: skew(-10deg); }
 .detective-face { position: absolute; left: 7px; top: 8px; display: grid; place-items: center; width: 21px; height: 20px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); color: var(--accent); font-size: 13px; line-height: 1; }
 .detective-coat { position: absolute; left: 4px; bottom: 0; width: 28px; height: 23px; border-radius: 14px 14px 4px 4px; background: var(--accent); }

@@ -1,7 +1,10 @@
 <div class="detective" id="mouse-detective" aria-hidden="true"><div class="detective-bubble">tracking signal</div><div class="detective-figure"><span class="detective-hat"></span><span class="detective-face">◡</span><span class="detective-coat"></span></div></div>
 <script is:inline>
   const detective = document.querySelector('#mouse-detective');
-  let targetX = 28, targetY = window.innerHeight - 30, x = targetX, y = targetY;
-  window.addEventListener('pointermove', (event) => { targetX = Math.min(window.innerWidth - 34, Math.max(28, event.clientX * .08 + 28)); targetY = Math.min(window.innerHeight - 30, Math.max(30, event.clientY * .08 + window.innerHeight * .92)); });
-  const follow = () => { x += (targetX - x) * .08; y += (targetY - y) * .08; if (detective) detective.style.transform = `translate3d(${x - 28}px, ${y - 30}px, 0)`; requestAnimationFrame(follow); }; follow();
+  let targetX = 22, targetY = window.innerHeight - 86, x = targetX, y = targetY;
+  window.addEventListener('pointermove', (event) => {
+    targetX = Math.min(window.innerWidth - 74, Math.max(10, event.clientX * .12));
+    targetY = Math.min(window.innerHeight - 72, Math.max(10, window.innerHeight - 92 + event.clientY * .06));
+  }, { passive: true });
+  const follow = () => { x += (targetX - x) * .1; y += (targetY - y) * .1; if (detective) detective.style.transform = `translate3d(${x}px, ${y}px, 0)`; requestAnimationFrame(follow); }; follow();
 </script>
