@@ -7,6 +7,7 @@ tags: [SOC workflows, Decision support, Optimization]
 featured: true
 order: 1
 repository: https://github.com/bartuemre/soc-decision-lab
+demo: https://bartuemre.github.io/soc-decision-lab/
 visual: soc
 ---
 
