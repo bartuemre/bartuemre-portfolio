@@ -105,9 +105,9 @@ h3 { font-size: 1.6rem; }
 .orbital-map { display: block; width: 100%; shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
 .orbital-grid { transform-origin: 240px 210px; animation: grid-drift 18s ease-in-out infinite alternate; }
 .atom-orbit { transform-origin: 240px 210px; fill: none; stroke: var(--accent); stroke-opacity: .42; stroke-width: 1.5; }
-.atom-orbit-a { animation: atom-spin-a 18s linear infinite; }
-.atom-orbit-b { animation: atom-spin-b 25s linear infinite reverse; }
-.atom-orbit-c { animation: atom-spin-c 31s linear infinite; }
+.atom-orbit-a { animation: atom-spin-a 28s linear infinite; }
+.atom-orbit-b { animation: atom-spin-b 38s linear infinite reverse; }
+.atom-orbit-c { animation: atom-spin-c 46s linear infinite; }
 .profile-orbit { fill: none; }
 .star-orbit { stroke: var(--accent); stroke-opacity: .28; stroke-width: 1.5; stroke-linejoin: round; }
 .orbit-avatar { stroke: var(--surface); stroke-width: 3; filter: url(#particle-glow); }
