@@ -5,7 +5,7 @@
     <defs>
       <radialGradient id="ambient" cx="50%" cy="45%"><stop stop-color="var(--accent)" stop-opacity=".22" /><stop offset=".55" stop-color="var(--accent)" stop-opacity=".05" /><stop offset="1" stop-color="var(--accent)" stop-opacity="0" /></radialGradient>
       <linearGradient id="core" x1="0" y1="0" x2="1" y2="1"><stop stop-color="var(--surface)" /><stop offset="1" stop-color="var(--surface-soft)" /></linearGradient>
-      <clipPath id="core-avatar-clip"><circle cx="240" cy="210" r="27" /></clipPath>
+      <clipPath id="core-avatar-clip"><circle cx="240" cy="210" r="21" /></clipPath>
       <clipPath id="orbit-avatar-clip"><circle cx="376" cy="163" r="20" /></clipPath>
       <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
       <filter id="particle-glow" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="2.5" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
@@ -20,7 +20,7 @@
       <path class="star-orbit" d="M240 94 L270 158 L339 166 L287 211 L305 280 L240 242 L175 280 L193 211 L141 166 L210 158 Z" />
       <path class="star-orbit" d="M240 105 L277 180 L320 138 L300 205 L359 228 L294 236 L278 302 L240 248 L202 302 L186 236 L121 228 L180 205 L160 138 L203 180 Z" />
       <path class="star-orbit" d="M240 116 L257 177 L324 164 L274 207 L322 263 L257 244 L240 306 L223 244 L158 263 L206 207 L156 164 L223 177 Z" />
-      <g class="orbit-avatar"><image class="core-avatar" href="https://avatars.githubusercontent.com/u/126015307?v=4" x="219" y="189" width="42" height="42" preserveAspectRatio="xMidYMid slice" clip-path="url(#core-avatar-clip)" /><animateMotion id="profile-motion" dur="7s" repeatCount="indefinite" rotate="0" path="M0 -116 L30 -52 L99 -44 L47 1 L65 70 L0 32 L-65 70 L-47 1 L-99 -44 L-30 -52 Z" /></g>
+      <g class="orbit-avatar"><image class="core-avatar" href="https://avatars.githubusercontent.com/u/126015307?v=4" x="219" y="189" width="42" height="42" preserveAspectRatio="xMidYMid slice" clip-path="url(#core-avatar-clip)" /><animateMotion id="profile-motion" dur="14s" repeatCount="indefinite" rotate="0" path="M0 -116 L30 -52 L99 -44 L47 1 L65 70 L0 32 L-65 70 L-47 1 L-99 -44 L-30 -52 Z" /></g>
     </g>
     <g class="system-card" fill="var(--surface)" stroke="var(--accent)" stroke-opacity=".7"><rect x="96" y="126" width="114" height="43" rx="7" /><rect x="300" y="166" width="114" height="43" rx="7" /><rect x="183" y="278" width="135" height="43" rx="7" /></g>
     <g class="system-card-text" fill="var(--text)" text-anchor="middle" font-family="var(--font-display)" font-size="12" font-weight="600" letter-spacing=".2"><text x="153" y="152">SECURITY</text><text x="357" y="192">SOFTWARE</text><text x="250" y="304">OPTIMIZATION</text></g>
@@ -41,7 +41,7 @@
         previous = next;
         profileMotion.setAttribute('path', starPaths[next]);
         profileMotion.beginElement();
-      }, 7000);
+      }, 14000);
     }
   </script>
 </div>
