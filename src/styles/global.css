@@ -102,9 +102,29 @@ h3 { font-size: 1.6rem; }
 .systems-map::after { bottom: -12px; right: -4px; }
 .map-topline, .map-bottomline { display: flex; justify-content: space-between; gap: 10px; padding-inline: 15px; font-size: .55rem; }
 .map-bottomline { border-top: 1px solid var(--line); padding-top: 15px; }
-.orbital-map { display: block; width: 100%; }
-.orbit-ring { transform-origin: 240px 210px; animation: orbit 42s linear infinite; }
-@keyframes orbit { to { transform: rotate(360deg); } }
+.orbital-map { display: block; width: 100%; transform: perspective(900px) rotateX(4deg); transform-origin: 50% 50%; }
+.orbital-grid { transform-origin: 240px 210px; animation: grid-drift 18s ease-in-out infinite alternate; }
+.atom-orbit { transform-origin: 240px 210px; fill: none; stroke: var(--accent); stroke-opacity: .42; stroke-width: 1.5; }
+.atom-orbit-a { animation: atom-spin-a 18s linear infinite; }
+.atom-orbit-b { animation: atom-spin-b 25s linear infinite reverse; }
+.atom-orbit-c { animation: atom-spin-c 31s linear infinite; }
+.orbit-particle { fill: var(--accent); stroke: var(--surface); stroke-width: 2; filter: url(#particle-glow); }
+.particle-halo { fill: var(--accent); opacity: .12; stroke: none; animation: particle-pulse 2.8s ease-in-out infinite; }
+.particle-b { animation-delay: -1s; }
+.particle-c { animation-delay: -1.8s; }
+.core-system { transform-origin: 240px 210px; animation: core-breathe 4.5s ease-in-out infinite; }
+.system-card { filter: drop-shadow(0 8px 12px color-mix(in srgb, var(--text) 10%, transparent)); }
+.status-nodes { animation: node-pulse 2.6s ease-in-out infinite; }
+@keyframes atom-spin-a { to { transform: rotate(360deg); } }
+@keyframes atom-spin-b { to { transform: rotate(360deg); } }
+@keyframes atom-spin-c { to { transform: rotate(360deg); } }
+@keyframes grid-drift { from { transform: rotate(-1deg) scale(.99); } to { transform: rotate(1deg) scale(1.01); } }
+@keyframes core-breathe { 0%, 100% { transform: scale(.98); } 50% { transform: scale(1.04); } }
+@keyframes particle-pulse { 0%, 100% { opacity: .08; transform: scale(.85); } 50% { opacity: .28; transform: scale(1.2); } }
+@keyframes node-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .orbital-grid, .atom-orbit, .particle-halo, .core-system, .status-nodes { animation: none; }
+}
 .hero-footnote { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 22px; padding-bottom: 10px; color: var(--muted); font-size: .58rem; }
 .hero-footnote a { display: flex; align-items: center; gap: 22px; font-family: var(--font-sans); font-size: .75rem; letter-spacing: 0; }
 .section { padding-block: 88px; }
