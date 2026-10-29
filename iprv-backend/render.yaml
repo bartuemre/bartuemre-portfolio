@@ -1,0 +1,26 @@
+# Free service: SQLite data is ephemeral. No paid resources or disks are created.
+services:
+  - type: web
+    name: iprv-api
+    runtime: python
+    plan: free
+    buildCommand: pip install .
+    startCommand: uvicorn iprv.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.9
+      - key: IPRV_DEPLOYMENT
+        value: local
+      - key: IPRV_DATABASE
+        value: /tmp/iprv/iprv.sqlite3
+      - key: IPRV_EPHEMERAL_STORAGE
+        value: "true"
+      - key: IPRV_FRONTEND_ORIGIN
+        value: https://bartuemre.com
+      - key: IPRV_ALLOW_EXTERNAL
+        value: "false"
+      - key: IPRV_ALLOW_FEED_DOWNLOADS
+        value: "false"
+      - key: IPRV_AUTO_SYNC
+        value: "false"
