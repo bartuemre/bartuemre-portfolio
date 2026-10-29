@@ -40,8 +40,8 @@ test('every generated internal link and local asset resolves', async () => {
 
 test('truthful publication states, indexing, and legacy preservation', async () => {
   const research = await readFile(path.join(dist, 'projects/research-explorer/index.html'), 'utf8');
-  assert.match(research, /Repository link not yet available/);
-  assert.doesNotMatch(research, /<a\b[^>]*href="https?:[^\"]*research-explorer/);
+  assert.match(research, /Go project/);
+  assert.match(research, /https:\/\/bartuemre\.github\.io\/literatur-tarama\//);
   const soc = await readFile(path.join(dist, 'projects/soc-decision-lab/index.html'), 'utf8');
   assert.match(soc, /an implemented or validated optimizer is not claimed/);
   assert.match(await readFile(path.join(dist, '404.html'), 'utf8'), /noindex, follow/);
