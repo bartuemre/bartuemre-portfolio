@@ -146,10 +146,9 @@ h3 { font-size: 1.6rem; }
 .iprv-result.is-valid .iprv-result-mark { background: var(--success); color: var(--bg); }
 .iprv-result.is-warning { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
 .iprv-result.is-warning .iprv-result-mark { background: var(--accent); color: var(--button-text); }
-.detective { position: fixed; left: 10px; bottom: 8px; z-index: 25; pointer-events: none; width: 118px; height: 150px; color: var(--text); }
-.detective-art { display: block; width: 100%; height: 100%; overflow: visible; }
-#detective-head { transition: transform .16s ease-out; }
-.detective-pupil { transition: transform .12s ease-out; }
+.gaze-eyes { position: fixed; top: 13px; left: 50%; z-index: 25; pointer-events: none; width: min(330px, 48vw); transform: translateX(-50%); color: var(--text); }
+.gaze-eyes-art { display: block; width: 100%; height: auto; overflow: visible; }
+.gaze-pupil { transition: transform .045s linear; }
 .detective-hat { position: absolute; left: 1px; top: 0; width: 32px; height: 10px; border-radius: 12px 12px 3px 3px; background: var(--accent); transform: skew(-10deg); }
 .detective-face { position: absolute; left: 7px; top: 8px; display: grid; place-items: center; width: 21px; height: 20px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); color: var(--accent); font-size: 13px; line-height: 1; }
 .detective-coat { position: absolute; left: 4px; bottom: 0; width: 28px; height: 23px; border-radius: 14px 14px 4px 4px; background: var(--accent); }
@@ -310,7 +309,7 @@ h3 { font-size: 1.6rem; }
   .iprv-demo { padding: 25px 20px; }
   .iprv-demo-heading { align-items: start; flex-direction: column; gap: 10px; }
   .iprv-input-row { flex-direction: column; }
-  .detective { left: 2px; bottom: 4px; width: 92px; height: 118px; }
+  .gaze-eyes { top: 10px; width: min(245px, 64vw); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
