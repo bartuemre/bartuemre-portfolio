@@ -3,10 +3,12 @@ title: IPRV — IP Reputation Validator
 summary: A defensive IP investigation workspace that keeps evidence, context, and uncertainty visible.
 category: Software & research
 status: Local working release · v0.4.7
+stage: local
 tags: [IP reputation, Evidence, Blue Team]
 featured: true
 order: 2
 repository: https://github.com/bartuemre
+demo: https://iprv.bartuemre.com/
 visual: iprv
 ---
 
@@ -14,7 +16,7 @@ visual: iprv
 
 IPRV (IP Reputation Validator) is a defensive investigation tool for IPv4, IPv6, and CIDR inputs. It compares indicators with local warning lists, IOC sources, and allowlists, then presents the evidence and context behind a result.
 
-The current working release is **v0.4.7**. The portfolio includes a lightweight in-page validator so the core workflow can be tried without leaving this site.
+The current working release is **v0.4.7**. The portfolio embeds the latest application interface, including network lookup, and the workspace also opens as a separate site at [iprv.bartuemre.com](https://iprv.bartuemre.com/). It includes its own English/Turkish language selection.
 
 ## What it keeps visible
 
@@ -22,4 +24,4 @@ The current working release is **v0.4.7**. The portfolio includes a lightweight 
 - private, reserved, and non-global address context;
 - the difference between an indicator lookup and a confident security verdict.
 
-The full application remains a local Python/FastAPI project; this page is its small, browser-safe demonstration surface.
+IPRV uses a Python/FastAPI backend. Data availability and live-query options depend on the connected service; the interface shows its current state. A result should be read alongside its source coverage and evidence.

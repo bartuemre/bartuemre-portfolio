@@ -9,17 +9,39 @@
     <path d="M50 31c37-27 82-29 119-6M271 25c37-23 82-21 119 6" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" opacity=".8" />
   </svg>
 </div>
-<script is:inline>
-  const gazePupils = document.querySelectorAll('.gaze-pupil');
-  const moveGaze = (event) => {
-    gazePupils.forEach((pupil) => {
-      const box = pupil.getBoundingClientRect();
-      const dx = event.clientX - (box.left + box.width / 2);
-      const dy = event.clientY - (box.top + box.height / 2);
-      const distance = Math.hypot(dx, dy) || 1;
-      const amount = Math.min(11, distance / 26);
-      pupil.setAttribute('transform', `translate(${(dx / distance) * amount} ${(dy / distance) * amount})`);
+<script>
+  import { isMotionPaused, onMotionChange } from '../scripts/motion';
+  const eyes = document.querySelector<HTMLElement>('.gaze-eyes');
+  const pupils = eyes?.querySelectorAll<SVGCircleElement>('.gaze-pupil');
+  const pointer = matchMedia('(hover: hover) and (pointer: fine)');
+  let frame = 0;
+  let position = { x: 0, y: 0 };
+
+  function resetGaze() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    pupils?.forEach(pupil => pupil.removeAttribute('transform'));
+  }
+  function moveGaze(event: PointerEvent) {
+    if (!eyes || isMotionPaused() || !pointer.matches || event.pointerType === 'touch') return;
+    position = { x: event.clientX, y: event.clientY };
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const box = eyes.getBoundingClientRect();
+      if (!box.width) return;
+      // Use the untransformed eye centers so movement cannot feed back into itself.
+      pupils?.forEach((pupil, index) => {
+        const dx = position.x - (box.left + box.width * (index === 0 ? .25 : .75));
+        const dy = position.y - (box.top + box.height * .52);
+        const distance = Math.hypot(dx, dy) || 1;
+        const amount = Math.min(11, distance / 26);
+        pupil.setAttribute('transform', `translate(${dx / distance * amount} ${dy / distance * amount})`);
+      });
     });
-  };
+  }
   window.addEventListener('pointermove', moveGaze, { passive: true });
+  document.documentElement.addEventListener('pointerleave', resetGaze);
+  onMotionChange(resetGaze);
+  pointer.addEventListener('change', resetGaze);
 </script>

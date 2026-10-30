@@ -1,15 +1,31 @@
 ---
+import { localeFromPath, translator, localizedPath } from '../i18n';
 import { navigation } from '../data/profile';
 import ThemeToggle from './ThemeToggle.astro';
 import Icon from './Icon.astro';
-const path = Astro.url.pathname;
+import Detective from './Detective.astro';
+const path = localizedPath(Astro.url.pathname, 'en');
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const href = (path: string) => localizedPath(path, locale);
 ---
 <header class="site-header">
   <div class="container nav-shell">
-    <a class="wordmark" href="/" aria-label="Bartu Emre — Home"><img class="profile-avatar" src="https://avatars.githubusercontent.com/u/126015307?v=4" alt="" width="34" height="34" /><span>Bartu Emre<span class="brand-dot">.</span></span></a>
-    <nav id="primary-navigation" aria-label="Main navigation">
-      {navigation.map(({ href, label }) => <a href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a>)}
+    <div class="brand-signature">
+      <a class="wordmark" href={href("/")} aria-label={t("Bartu Emre — Home")}><img class="profile-avatar" src="/images/profile-v4.png" alt="" width="34" height="34" /><span>Bartu Emre<span class="brand-dot">.</span></span></a>
+      <Detective />
+    </div>
+    <nav id="primary-navigation" aria-label={t("Main navigation")}>
+      {navigation.map(({ href: route, label }) => <a href={href(route)} aria-current={(route === '/' ? path === '/' : path.startsWith(route)) ? 'page' : undefined}>{t(label)}</a>)}
     </nav>
-    <div class="nav-controls"><ThemeToggle /><button id="menu-toggle" class="icon-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation" hidden><Icon name="menu" /></button></div>
+    <div class="nav-controls">
+      <div class="language-switch" role="group" aria-label={t('Language')}>
+        <a href={localizedPath(Astro.url.pathname, 'en')} lang="en" hreflang="en" aria-label="English" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+        <span aria-hidden="true">/</span>
+        <a href={localizedPath(Astro.url.pathname, 'tr')} lang="tr" hreflang="tr" aria-label="Türkçe" aria-current={locale === 'tr' ? 'true' : undefined}>TR</a>
+      </div>
+      <ThemeToggle /><button id="menu-toggle" class="icon-button" type="button" aria-label={t("Open navigation")} aria-expanded="false" aria-controls="primary-navigation" hidden><span class="menu-open-icon"><Icon name="menu" /></span><span class="menu-close-icon" aria-hidden="true">×</span></button>
+    </div>
   </div>
 </header>

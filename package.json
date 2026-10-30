@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "check": "astro check",
     "build": "astro build",
+    "build:iprv-site": "node scripts/build-iprv-site.mjs",
     "preview": "astro preview",
     "test": "node --test tests/site.test.mjs",
     "test:e2e": "playwright test"

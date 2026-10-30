@@ -26,6 +26,7 @@ class Settings:
     allow_feed_downloads: bool = False
     auto_sync: bool = False
     frontend_origin: str = ""
+    additional_frontend_origin: str = ""
     abuseipdb_key: str = field(default="", repr=False)
     threatfox_key: str = field(default="", repr=False)
     deployment: str = "local"
@@ -37,9 +38,11 @@ class Settings:
         if self.deployment not in {"local", "cloud"}:
             raise ValueError("IPRV_DEPLOYMENT must be local or cloud")
         if self.deployment == "local":
-            if self.frontend_origin:
-                origin = urlsplit(self.frontend_origin)
-                local_origin = self.frontend_origin in {
+            for frontend_origin in (self.frontend_origin, self.additional_frontend_origin):
+                if not frontend_origin:
+                    continue
+                origin = urlsplit(frontend_origin)
+                local_origin = frontend_origin in {
                     "http://127.0.0.1:5173",
                     "http://localhost:5173",
                 }
@@ -51,7 +54,7 @@ class Settings:
                     and not origin.path
                     and not origin.query
                     and not origin.fragment
-                    and self.frontend_origin == f"https://{origin.netloc}"
+                    and frontend_origin == f"https://{origin.netloc}"
                 )
                 if not local_origin and not public_origin:
                     raise ValueError("IPRV_FRONTEND_ORIGIN must be a localhost or exact HTTPS origin")
@@ -64,21 +67,26 @@ class Settings:
             33 <= ord(character) <= 126 for character in self.access_token
         ):
             raise ValueError("Cloud deployment requires a 32-256 character IPRV_ACCESS_TOKEN")
-        origin = urlsplit(self.frontend_origin)
-        if (
-            origin.scheme != "https"
-            or not origin.hostname
-            or origin.username is not None
-            or origin.password is not None
-            or origin.path
-            or origin.query
-            or origin.fragment
-            or self.frontend_origin != f"https://{origin.netloc}"
-            or not re.fullmatch(r"[a-z0-9][a-z0-9.-]*[a-z0-9]", origin.hostname)
-        ):
-            raise ValueError(
-                "Cloud deployment requires an exact HTTPS IPRV_FRONTEND_ORIGIN without a path"
-            )
+        for frontend_origin in (self.frontend_origin, self.additional_frontend_origin):
+            if not frontend_origin:
+                continue
+            origin = urlsplit(frontend_origin)
+            if (
+                origin.scheme != "https"
+                or not origin.hostname
+                or origin.username is not None
+                or origin.password is not None
+                or origin.path
+                or origin.query
+                or origin.fragment
+                or frontend_origin != f"https://{origin.netloc}"
+                or not re.fullmatch(r"[a-z0-9][a-z0-9.-]*[a-z0-9]", origin.hostname)
+            ):
+                raise ValueError(
+                    "Cloud deployment requires exact HTTPS frontend origins without paths"
+                )
+        if not self.frontend_origin:
+            raise ValueError("Cloud deployment requires IPRV_FRONTEND_ORIGIN")
 
     @classmethod
     def load(cls, env_file: Path | None = None):
@@ -92,6 +100,7 @@ class Settings:
             ),
             auto_sync=boolean(config.get("IPRV_AUTO_SYNC"), "IPRV_AUTO_SYNC"),
             frontend_origin=origin,
+            additional_frontend_origin=(config.get("IPRV_ADDITIONAL_FRONTEND_ORIGIN") or "").rstrip("/"),
             abuseipdb_key=(config.get("ABUSEIPDB_API_KEY") or "").strip(),
             threatfox_key=(config.get("THREATFOX_API_KEY") or "").strip(),
             deployment=config.get("IPRV_DEPLOYMENT") or "local",

@@ -1,6 +1,10 @@
 ---
+import { localeFromPath, translator } from '../../i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeading from '../../components/PageHeading.astro';
 import ComingSoon from '../../components/ComingSoon.astro';
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
 ---
-<BaseLayout title="Blog" description="Future writing by Bartu Emre on software, cybersecurity, and optimization. No articles published yet."><PageHeading eyebrow="BLOG / THINKING OUT LOUD" title="A notebook, in the making." description="Making space to reflect on what I'm learning, what I'm building, and the questions along the way." /><ComingSoon type="blog" /></BaseLayout>
+<BaseLayout title={t("Blog")} description={t("Future writing by Bartu Emre on software, cybersecurity, and optimization. No articles published yet.")}><PageHeading eyebrow={t("BLOG / THINKING OUT LOUD")} title={t("A notebook, in the making.")} description={t("Making space to reflect on what I'm learning, what I'm building, and the questions along the way.")} /><ComingSoon type="blog" /></BaseLayout>

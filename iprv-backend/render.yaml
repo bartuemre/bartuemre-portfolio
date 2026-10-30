@@ -18,6 +18,8 @@ services:
         value: "true"
       - key: IPRV_FRONTEND_ORIGIN
         value: https://bartuemre.com
+      - key: IPRV_ADDITIONAL_FRONTEND_ORIGIN
+        value: https://iprv.bartuemre.com
       - key: IPRV_ALLOW_EXTERNAL
         value: "false"
       - key: IPRV_ALLOW_FEED_DOWNLOADS

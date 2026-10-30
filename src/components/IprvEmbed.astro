@@ -1,4 +1,16 @@
+---
+import { localeFromPath, translator } from '../i18n';
+import Icon from './Icon.astro';
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const appUrl = `/iprv-app/index.html?lang=${locale}`;
+const standaloneUrl = `https://iprv.bartuemre.com/?lang=${locale}`;
+---
 <section class="iprv-embed" aria-labelledby="iprv-embed-title">
-  <div class="iprv-embed-heading"><div><p class="eyebrow">FULL PROJECT INTERFACE</p><h2 id="iprv-embed-title">IPRV workspace<span class="accent-text">.</span></h2></div><span class="microcopy">EMBEDDED / v0.4.7</span></div>
-  <iframe class="iprv-embed-frame" src="/iprv-app/" title="IPRV IP Reputation Validator workspace" loading="eager"></iframe>
+  <div class="iprv-embed-heading">
+    <div><p class="eyebrow">{t("FULL PROJECT INTERFACE")}</p><h2 id="iprv-embed-title">{t("IPRV workspace")}<span class="accent-text">.</span></h2><p class="iprv-embed-note">{t('For more room, open the workspace in a new tab.')}</p></div>
+    <a class="button button-secondary" href={standaloneUrl} target="_blank" rel="noopener noreferrer">{t('Open workspace')} <Icon name="external" /><span class="sr-only"> {t('(opens in a new tab)')}</span></a>
+  </div>
+  <iframe class="iprv-embed-frame" src={appUrl} title={t("IPRV IP Reputation Validator workspace")} loading="lazy"></iframe>
 </section>

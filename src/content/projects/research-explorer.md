@@ -3,6 +3,7 @@ title: Research Explorer
 summary: A literature research web app connecting discovery, filtering, and DOI, PDF, and CSV workflows.
 category: Software & research
 status: Live GitHub Pages demo
+stage: demo
 demo: https://bartuemre.github.io/literatur-tarama/
 tags: [OpenAlex workflows, Literature research, Web application]
 featured: false

@@ -1,7 +1,12 @@
 ---
+import { localeFromPath, translator, localizedPath } from '../i18n';
 import Icon from './Icon.astro';
 interface Props { type: 'lab' | 'blog'; }
 const { type } = Astro.props;
 const lab = type === 'lab';
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const href = (path: string) => localizedPath(path, locale);
 ---
-<section class="container section-bottom"><div class="coming-soon"><div class="coming-symbol" aria-hidden="true">{lab ? '[ >_ ]' : '{ … }'}</div><div><p class="eyebrow">A SPACE FOR WHAT COMES NEXT</p><h2>{lab ? 'Notes from the learning process.' : 'Ideas, with room to develop.'}</h2><p>{lab ? 'This space will hold technical lab notes and writeups as they are ready to share. The focus will be Blue Team, detection engineering, and security learning.' : 'A future home for writing about software, cybersecurity, optimization, and the connections between them.'}</p><p class="publication-status">No {lab ? 'lab writeups' : 'articles'} published yet.</p><a href="/projects/" class="text-link">Explore current projects <Icon /></a></div></div></section>
+<section class="container section-bottom"><div class="coming-soon"><div class="coming-symbol" aria-hidden="true">{lab ? '[ >_ ]' : '{ … }'}</div><div><p class="eyebrow">{t("A SPACE FOR WHAT COMES NEXT")}</p><h2>{t(lab ? 'Notes from the learning process.' : 'Ideas, with room to develop.')}</h2><p>{t(lab ? 'This space will hold technical lab notes and writeups as they are ready to share. The focus will be Blue Team, detection engineering, and security learning.' : 'A future home for writing about software, cybersecurity, optimization, and the connections between them.')}</p><p class="publication-status">{t(lab ? 'No lab writeups published yet.' : 'No articles published yet.')}</p><a href={href("/projects/")} class="text-link">{t("Explore current projects")} <Icon /></a></div></div></section>

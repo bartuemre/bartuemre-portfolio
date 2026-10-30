@@ -91,25 +91,30 @@ test('no-JavaScript fallback exposes content and mobile navigation', async ({ br
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4321/');
   await expect(page.getByRole('navigation')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'SOC Decision Lab' })).toBeVisible();
+  await expect(page.locator('#selected-work')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Türkçe', exact: true })).toBeVisible();
   await expect(page.locator('#theme-toggle')).toBeHidden();
   await page.getByRole('navigation').getByRole('link', { name: 'Projects', exact: true }).click();
   await expect(page).toHaveURL(/\/projects\/$/);
+  await expect(page.getByRole('heading', { name: 'SOC Decision Lab' })).toBeVisible();
   await context.close();
 });
 
 test('reduced motion removes animation and leaves content visible', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  expect(await page.locator('.orbit-ring').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+  expect(await page.locator('.atom-orbit').first().evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+  await page.goto('/projects/');
   expect(await page.locator('.project-card').first().evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
 });
 
 test('project detail navigation and unavailable links', async ({ page }) => {
   await page.goto('/projects/');
-  await page.getByRole('link', { name: 'Research Explorer', exact: true }).click();
-  await expect(page.getByText('Repository link not yet available.')).toBeVisible();
-  await expect(page.getByRole('link', { name: /View repository/ })).toHaveCount(0);
+  const popup = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'Open Research Explorer project in a new tab' }).click();
+  const detail = await popup;
+  await expect(detail.getByText('Repository link not yet available.')).toBeVisible();
+  await expect(detail.getByRole('link', { name: /View repository/ })).toHaveCount(0);
   await page.goto('/projects/soc-decision-lab/');
   await expect(page.getByRole('link', { name: /View repository/ })).toHaveAttribute('href', 'https://github.com/bartuemre/soc-decision-lab');
 });

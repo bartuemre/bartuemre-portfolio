@@ -1,4 +1,9 @@
 ---
+import { localeFromPath, translator, localizedPath } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const href = (path: string) => localizedPath(path, locale);
 ---
-<BaseLayout title="Page not found" noindex><section class="container not-found"><p class="eyebrow">404 / OFF THE MAP</p><h1>No signal<br />at this address<span class="accent-text">.</span></h1><p>The page may have moved, or the address might be incomplete.</p><div class="button-row"><a class="button button-primary" href="/">Back to home →</a><a class="button button-quiet" href="/projects/">Explore projects</a></div></section></BaseLayout>
+<BaseLayout title={t("Page not found")} noindex><section class="container not-found"><p class="eyebrow">{t("404 / OFF THE MAP")}</p><h1>{t("No signal")}<br />{t("at this address")}<span class="accent-text">.</span></h1><p>{t("The page may have moved, or the address might be incomplete.")}</p><div class="button-row"><a class="button button-primary" href={href("/")}>{t("Back to home →")}</a><a class="button button-quiet" href={href("/projects/")}>{t("Explore projects")}</a></div></section></BaseLayout>

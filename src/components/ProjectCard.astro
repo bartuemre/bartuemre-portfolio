@@ -1,20 +1,27 @@
 ---
+import { localeFromPath, translator, localizedPath } from '../i18n';
 import type { CollectionEntry } from 'astro:content';
 import Icon from './Icon.astro';
 import ProjectVisual from './ProjectVisual.astro';
-interface Props { project: CollectionEntry<'projects'>; compact?: boolean; }
+interface Props { project: CollectionEntry<'projects' | 'projectsTr'>; compact?: boolean; }
 const { project, compact = false } = Astro.props;
 const { data } = project;
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const href = (path: string) => localizedPath(path, locale);
 ---
 <article class:list={['project-card', { 'project-card-compact': compact }]} data-reveal>
-  <a href={`/projects/${project.id}/`} class="project-image-link" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><ProjectVisual kind={data.visual} compact={compact} /></a>
+  <a href={href(`/projects/${project.id}/`)} class="project-image-link" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><ProjectVisual kind={data.visual} compact={compact} /></a>
   <div class="project-content">
     {!compact && <p class="project-category">{data.category}</p>}
-    <h3><a href={`/projects/${project.id}/`} target="_blank" rel="noopener noreferrer" aria-label={`Open ${data.title} project in a new tab`}>{data.title}<Icon name="external" size={24} /><span class="sr-only"> (opens in a new tab)</span></a></h3>
+    <h3><a href={href(`/projects/${project.id}/`)} target="_blank" rel="noopener noreferrer" aria-label={locale === "tr" ? `${data.title} projesini yeni sekmede aç` : `Open ${data.title} project in a new tab`}>{data.title}<Icon name="external" size={24} /><span class="sr-only"> {t("(opens in a new tab)")}</span></a></h3>
     <p class="project-summary">{data.summary}</p>
-    {!compact && <ul class="tag-list" aria-label="Project topics">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
-    <div class="project-bottom"><span class="project-status"><span aria-hidden="true" class="status-dot"></span>{data.status}</span>{!compact && <span class="project-index" aria-hidden="true">0{data.order}</span>}</div>
-    {!compact && data.demo && <a class="button button-primary project-card-action" href={data.demo} target="_blank" rel="noopener noreferrer">Go project <Icon name="external" /><span class="sr-only"> (opens in a new tab)</span></a>}
-    {!compact && <a class="button button-quiet project-card-action" href={`/projects/${project.id}/`} target="_blank" rel="noopener noreferrer">Open project <Icon name="external" /><span class="sr-only"> (opens in a new tab)</span></a>}
+    {!compact && <ul class="tag-list" aria-label={t("Project topics")}>{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
+    <div class="project-bottom"><span class="project-status" data-stage={data.stage}><span aria-hidden="true" class="status-dot"></span>{data.status}</span>{!compact && <span class="project-index" aria-hidden="true">{String(data.order).padStart(2, '0')}</span>}</div>
+    {!compact && <div class="project-card-actions">
+      <a class="button button-primary" href={href(`/projects/${project.id}/`)} target="_blank" rel="noopener noreferrer">{t('Project details')}<Icon name="external" size={17} /><span class="sr-only"> — {data.title} {t('(opens in a new tab)')}</span></a>
+      {data.demo && <a class="button button-secondary" href={data.demo} target="_blank" rel="noopener noreferrer">{t('Live demo')}<Icon name="external" size={17} /><span class="sr-only"> — {data.title} {t('(opens in a new tab)')}</span></a>}
+    </div>}
   </div>
 </article>
