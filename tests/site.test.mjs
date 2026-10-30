@@ -44,7 +44,8 @@ test('selected work is on Projects only and language links preserve each page', 
     assert.doesNotMatch(tr.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, ''), /Skip to content|Open navigation|Switch to dark theme|opens in a new tab/);
   }
   const detail = await readFile(path.join(dist, 'tr/projects/soc-decision-lab/index.html'), 'utf8');
-  assert.match(detail, /uygulanmış veya doğrulanmış bir çözücü olduğu iddia edilmiyor/);
+  assert.match(detail, /genel amaçlı bir MILP çözücüsü değildir/);
+  assert.match(detail, /başlamış hazırlık ve incelemeler korunur/);
 });
 
 test('every generated internal link and local asset resolves', async () => {
@@ -67,7 +68,8 @@ test('truthful publication states, indexing, and legacy preservation', async () 
   assert.match(research, /Live GitHub Pages demo/);
   assert.match(research, /https:\/\/bartuemre\.github\.io\/literatur-tarama\//);
   const soc = await readFile(path.join(dist, 'projects/soc-decision-lab/index.html'), 'utf8');
-  assert.match(soc, /an implemented or validated optimizer is not claimed/);
+  assert.match(soc, /not a general MILP solver/);
+  assert.match(soc, /risk-weighted delay in starting an alert review/);
   assert.match(await readFile(path.join(dist, '404.html'), 'utf8'), /noindex, follow/);
   const files = await readdir(dist);
   const sitemapFiles = files.filter((file) => /sitemap.*\.xml$/.test(file));

@@ -85,7 +85,7 @@ The EN/TR links in the shared header switch to the equivalent page. Turkish navi
 - Project frontmatter and body: `src/content/projects/*.md`.
 - Validated collection schema: `src/content.config.ts`.
 - A new Markdown project automatically gets a detail route and joins the Projects index; add its Turkish counterpart with the same slug in `src/content/projects-tr/`. `order` controls sorting. `repository` and `demo` are optional valid URLs. Omitted URLs produce a non-clickable status, never a dead button.
-- SOC Decision Lab remains an in-progress academic project. MILP is under consideration; the site does not claim an implemented/validated optimizer or production results.
+- SOC Decision Lab now has a documented scheduling model and a live synthetic interactive demo. Its small example uses exhaustive search, not a general MILP solver; the site does not claim validated SOC performance or production results.
 - Research Explorer is explicitly a working label. No repository/deployment URL is invented.
 - For Phase 2, add a separate typed article collection and `src/pages/blog/[slug].astro` using the existing project collection/render pattern and `BaseLayout`. Add lab entries similarly. Publish only actual articles; there are no fabricated seed posts.
 - Filtering is intentionally deferred for this two-entry collection. No nonfunctional filter controls are displayed.
