@@ -2,8 +2,8 @@
 title: IPRV — IP Reputation Validator
 summary: Kanıtları, bağlamı ve belirsizliği görünür tutan, savunma odaklı bir IP inceleme çalışma alanı.
 category: Yazılım ve araştırma
-status: Yerel çalışan sürüm · v0.4.7
-stage: local
+status: Yayında · v0.4.7
+stage: demo
 tags: [IP itibarı, Kanıt, Blue Team]
 featured: true
 order: 2
@@ -16,7 +16,7 @@ visual: iprv
 
 IPRV (IP Reputation Validator), IPv4, IPv6 ve CIDR girdileri için savunma odaklı bir inceleme aracıdır. Göstergeleri yerel uyarı listeleri, IOC kaynakları ve izin listeleriyle karşılaştırır; ardından sonucun arkasındaki kanıtları ve bağlamı sunar.
 
-Güncel çalışan sürüm **v0.4.7**’dir. Ağ sorgulama özelliğini de içeren güncel uygulama arayüzü bu sayfaya gömülüdür; çalışma alanı ayrıca [iprv.bartuemre.com](https://iprv.bartuemre.com/) adresinde ayrı bir site olarak açılır. Arayüzün kendi İngilizce/Türkçe dil seçimi de bulunur.
+Güncel sürüm **v0.4.7**’dir. Ağ sorgulama özelliğini de içeren uygulama arayüzü bu sayfaya gömülüdür; çalışma alanı ayrıca [iprv.bartuemre.com](https://iprv.bartuemre.com/) adresinde ayrı bir site olarak açılır. Arayüzün kendi İngilizce/Türkçe dil seçimi de bulunur.
 
 ## Görünür tuttuğu noktalar
 
