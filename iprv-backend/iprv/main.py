@@ -18,6 +18,7 @@ from iprv.database import initialize
 from iprv.intelligence import SourceManager
 from iprv.lineage import LineageRegistry
 from iprv.live import LiveService
+from iprv.network_lookup import lookup as network_lookup
 from iprv.parser import normalize, parse_input
 from iprv.reporting import BatchService, csv_report, result_report
 from iprv.reputation import ReputationService
@@ -70,6 +71,8 @@ def create_app(database_path: str | None = None, settings: Settings | None = Non
             allowed = {str(request.base_url).rstrip("/")}
             if settings.frontend_origin:
                 allowed.add(settings.frontend_origin)
+            if settings.additional_frontend_origin:
+                allowed.add(settings.additional_frontend_origin)
             if origin.rstrip("/") not in allowed:
                 return JSONResponse(
                     {"detail": "Cross-origin write requests are not allowed"},
@@ -84,17 +87,18 @@ def create_app(database_path: str | None = None, settings: Settings | None = Non
         if request.url.path == "/" or request.url.path.startswith("/assets/"):
             response.headers["Content-Security-Policy"] = (
                 "default-src 'self'; script-src 'self'; style-src 'self'; "
-                "img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; "
+                "img-src 'self' data:; connect-src 'self'; "
+                "frame-src https://www.openstreetmap.org; frame-ancestors 'none'; "
                 "object-src 'none'; base-uri 'none'; form-action 'self'"
             )
         return response
 
     if hosted:
         app.add_middleware(ApiAccessGuard, token=settings.access_token)
-    if settings.frontend_origin:
+    if settings.frontend_origin or settings.additional_frontend_origin:
         app.add_middleware(
             CORSMiddleware,
-            allow_origins=[settings.frontend_origin],
+            allow_origins=[origin for origin in (settings.frontend_origin, settings.additional_frontend_origin) if origin],
             allow_methods=["GET", "POST", "PATCH", "DELETE"],
             allow_headers=["Authorization", "Content-Type"],
             allow_credentials=False,
@@ -118,6 +122,8 @@ def create_app(database_path: str | None = None, settings: Settings | None = Non
             ThreatFoxService(reputation, settings.threatfox_key, external_enabled),
             UsomService(reputation, enabled=external_enabled),
         ],
+        network_lookup=network_lookup,
+        external_enabled=external_enabled,
     )
     queue = BatchQueue(batches, live)
 
@@ -299,6 +305,22 @@ def create_app(database_path: str | None = None, settings: Settings | None = Non
             return await live.analyze(body.indicator, body.mode, body.allow_external)
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
+
+    @app.post("/api/network-lookup")
+    async def direct_network_lookup(body: NetworkLookupRequest):
+        try:
+            indicator, _, is_global = normalize(body.indicator)
+        except ValueError as exc:
+            raise HTTPException(422, "Enter a valid IP address") from exc
+        if "/" in indicator:
+            raise HTTPException(422, "Enter a single IP address, not a network")
+        if not is_global:
+            raise HTTPException(422, "WHOIS and DNS lookup require a public IP address")
+        if not external_enabled:
+            raise HTTPException(403, "External lookups are disabled in server settings")
+        if not body.allow_external:
+            raise HTTPException(422, "External lookup consent is required")
+        return {"indicator": indicator, **(await network_lookup(indicator, "deep", True, True))}
 
     @app.get("/api/history")
     def history(indicator: str, limit: int = 50, offset: int = 0):
@@ -493,6 +515,10 @@ class ValidationRequest(BaseModel):
 
 class AnalysisRequest(ValidationRequest):
     mode: str = "balanced"
+    allow_external: bool = False
+
+
+class NetworkLookupRequest(ValidationRequest):
     allow_external: bool = False
 
 

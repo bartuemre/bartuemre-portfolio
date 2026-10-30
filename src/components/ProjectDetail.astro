@@ -1,0 +1,60 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { localeFromPath, translator, localizedPath } from '../i18n';
+import { profile } from '../data/profile';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectVisual from './ProjectVisual.astro';
+import Icon from './Icon.astro';
+import IprvEmbed from './IprvEmbed.astro';
+
+interface Props { project: CollectionEntry<'projects' | 'projectsTr'>; }
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const href = (path: string) => localizedPath(path, locale);
+const collection = (await getCollection(locale === 'tr' ? 'projectsTr' : 'projects')).sort((a, b) => a.data.order - b.data.order);
+const currentIndex = collection.findIndex(item => item.id === project.id);
+const next = collection.length > 1 ? collection[(currentIndex + 1) % collection.length] : undefined;
+const hasWorkspace = project.id === 'iprv';
+const repositoryIsProfile = data.repository === profile.github;
+---
+<BaseLayout title={data.title} description={data.summary}>
+  <header class="page-heading container">
+    <a class="back-link" href={href('/projects/')}>{t('← All projects')}</a>
+    <p class="eyebrow">{data.category}</p>
+    <h1>{data.title}</h1>
+    <p class="page-description">{data.summary}</p>
+    <p class="detail-status" data-stage={data.stage}><span class="status-dot" aria-hidden="true"></span>{data.status}</p>
+    <div class="button-row detail-jump-links">
+      <a class="text-link" href="#project-overview">{t('Read the overview')} <span aria-hidden="true">↓</span></a>
+      {hasWorkspace && <a class="text-link" href="#workspace">{t('Try the workspace')} <span aria-hidden="true">↓</span></a>}
+    </div>
+  </header>
+
+  <div class="container detail-visual"><ProjectVisual kind={data.visual} /></div>
+
+  <div class="container detail-grid section" id="project-overview">
+    <article class="prose project-prose" aria-label={t('Project overview')}><Content /></article>
+    <aside class="project-sidebar" aria-label={t('Project information')}>
+      <p class="eyebrow">{t('PROJECT NOTES')}</p>
+      <h2>{t('At a glance')}</h2>
+      <dl><dt>{t('Focus')}</dt><dd>{data.category}</dd><dt>{t('Status')}</dt><dd>{data.status}</dd></dl>
+      <ul class="tag-list" aria-label={t('Project topics')}>{data.tags.map(tag => <li>{tag}</li>)}</ul>
+      <div class="project-links">
+        {hasWorkspace && <a class="button button-primary" href="#workspace">{t('Try the workspace')} <Icon /></a>}
+        {data.demo && <a class="button button-primary" href={data.demo} target="_blank" rel="noopener noreferrer">{t('Live demo')} <Icon name="external" /><span class="sr-only"> {t('(opens in a new tab)')}</span></a>}
+        {data.repository && <a class="button button-secondary" href={data.repository} target="_blank" rel="noopener noreferrer">{t(repositoryIsProfile ? 'GitHub profile' : 'View repository')} <Icon name="external" /><span class="sr-only"> {t('(opens in a new tab)')}</span></a>}
+        {!data.repository && <p class="unavailable">{t('Repository link not yet available.')}</p>}
+      </div>
+    </aside>
+  </div>
+
+  {hasWorkspace && <div class="container section-bottom" id="workspace"><IprvEmbed /></div>}
+
+  <div class="container section-bottom project-pagination">
+    <a class="text-link" href={href('/projects/')}>{t('← Back to the collection')}</a>
+    {next && <a class="next-project" href={href(`/projects/${next.id}/`)}><span class="eyebrow">{t('NEXT PROJECT')}</span><span>{next.data.title} <Icon /></span></a>}
+  </div>
+</BaseLayout>

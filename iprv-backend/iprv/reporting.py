@@ -170,6 +170,26 @@ def csv_report(report: dict, detailed: bool = False):
         "address_count",
         "matches_truncated",
         "live_statuses",
+        "whois_status",
+        "whois_name",
+        "whois_handle",
+        "whois_country",
+        "whois_start_address",
+        "whois_end_address",
+        "whois_networks",
+        "dns_status",
+        "dns_ptr",
+        "geo_status",
+        "geo_country",
+        "geo_region",
+        "geo_city",
+        "geo_latitude",
+        "geo_longitude",
+        "geo_alternate_city",
+        "geo_alternate_country",
+        "geo_network_org",
+        "geo_asn",
+        "lookup_checked_at",
     ]
     evidence_fields = [
         "source_id",
@@ -207,6 +227,10 @@ def csv_report(report: dict, detailed: bool = False):
         result = report["results"].get(occurrence["normalized"], {})
         evidence = result.get("evidence", [])
         statuses = result.get("source_statuses", [])
+        network_lookup = result.get("network_lookup") or {}
+        whois = network_lookup.get("whois") or {}
+        dns = network_lookup.get("dns") or {}
+        geo = network_lookup.get("geo") or {}
         row = {
             "row": occurrence["row"],
             "field": occurrence["field"],
@@ -232,6 +256,26 @@ def csv_report(report: dict, detailed: bool = False):
             "address_count": result.get("query_scope", {}).get("address_count", "1"),
             "matches_truncated": result.get("matches_truncated", False),
             "live_statuses": json.dumps(result.get("live_statuses", {}), sort_keys=True),
+            "whois_status": whois.get("status", ""),
+            "whois_name": whois.get("name", ""),
+            "whois_handle": whois.get("handle", ""),
+            "whois_country": whois.get("country", ""),
+            "whois_start_address": whois.get("start_address", ""),
+            "whois_end_address": whois.get("end_address", ""),
+            "whois_networks": " | ".join(whois.get("networks", [])),
+            "dns_status": dns.get("status", ""),
+            "dns_ptr": " | ".join(dns.get("ptr", [])),
+            "geo_status": geo.get("status", ""),
+            "geo_country": geo.get("country", ""),
+            "geo_region": geo.get("region", ""),
+            "geo_city": geo.get("city", ""),
+            "geo_latitude": geo.get("latitude", ""),
+            "geo_longitude": geo.get("longitude", ""),
+            "geo_alternate_city": geo.get("alternate_city", ""),
+            "geo_alternate_country": geo.get("alternate_country", ""),
+            "geo_network_org": geo.get("network_org", ""),
+            "geo_asn": geo.get("asn", ""),
+            "lookup_checked_at": network_lookup.get("checked_at", ""),
         }
         for item in (evidence or [{}]) if detailed else [{}]:
             record = dict(row)

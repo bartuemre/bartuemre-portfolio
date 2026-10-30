@@ -148,9 +148,11 @@ class ThreatFoxService(LiveService):
 
 
 class HybridService:
-    def __init__(self, reputation, providers):
+    def __init__(self, reputation, providers, network_lookup=None, external_enabled=False):
         self.reputation = reputation
         self.providers = providers
+        self.network_lookup = network_lookup
+        self.external_enabled = external_enabled
 
     async def analyze(
         self, indicator, mode="balanced", allow_external=False, *, save=True, wait_for_slot=False
@@ -190,6 +192,10 @@ class HybridService:
             if any(s["id"].startswith("live:") for s in lookup["source_statuses"])
             else "configured_local_sources",
         )
+        if self.network_lookup is not None:
+            result["network_lookup"] = await self.network_lookup(
+                indicator, mode, allow_external, self.external_enabled
+            )
         if save:
             with self.reputation.manager.connect() as connection:
                 self.reputation.save(connection, result)

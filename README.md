@@ -1,6 +1,6 @@
 # Bartu Emre — Portfolio
 
-An English-language, static portfolio for [bartuemre.com](https://bartuemre.com), built with Astro 7, TypeScript, and Tailwind CSS 4. Phase 1 covers the core site, truthful project descriptions, accessibility, and a safe Cloudflare Pages migration.
+A bilingual English/Turkish static portfolio for [bartuemre.com](https://bartuemre.com), built with Astro 7, TypeScript, and Tailwind CSS 4. Phase 1 covers the core site, truthful project descriptions, accessibility, and a safe Cloudflare Pages migration.
 
 ## Local development
 
@@ -54,7 +54,7 @@ This local npm bootstrap is not needed by another developer or Cloudflare with a
 
 ## Design and architecture
 
-- Editorial typography, generous spacing, warm charcoal surfaces, muted brick-red accents, and original SVG concept diagrams connect the three disciplines without pretending to show running security systems or real product screenshots. The light theme uses warm ivory and deeper brick red. Home keeps only the introduction, selected work, and a brief contact invitation; longer explanations live on the inner pages.
+- Editorial typography, generous spacing, warm charcoal surfaces, muted brick-red accents, and original SVG concept diagrams connect the three disciplines without pretending to show running security systems or real product screenshots. The light theme uses warm ivory and deeper brick red. Home keeps the introduction and a brief contact invitation; selected work lives on Projects.
 - System fonts keep requests local. Static Astro pages avoid a hydrated framework or SPA. One small TypeScript module handles theme, mobile navigation, and progressive scroll reveals; CSS supplies ambient motion and native cross-document transitions where supported.
 - Tailwind 4 uses its official Vite plugin. Shared CSS variables handle both themes; utility classes support local spacing. Theme selection runs before styles paint, honors the system preference, and persists a visitor's override. Blocked browser storage is handled safely.
 - Navigation, content, and links work without JavaScript. Reduced motion disables decoration, transitions, and scroll effects. A skip link, focus styles, semantic headings, active navigation, and keyboard menu controls support accessible use.
@@ -65,7 +65,7 @@ This local npm bootstrap is not needed by another developer or Cloudflare with a
 
 | Route | Source / purpose |
 | --- | --- |
-| `/` | `src/pages/index.astro`: concise hero, two featured projects, short contact CTA |
+| `/` | `src/pages/index.astro`: concise hero and short contact CTA |
 | `/about/` | `src/pages/about.astro`: student background and interests |
 | `/projects/` | `src/pages/projects/index.astro`: project collection |
 | `/projects/[slug]/` | Markdown-driven project detail pages |
@@ -73,15 +73,18 @@ This local npm bootstrap is not needed by another developer or Cloudflare with a
 | `/lab/` | Honest future-writeups introduction |
 | `/blog/` | Honest future-writing introduction |
 | `/404.html` | Custom not-found page, excluded from indexing and sitemap |
+| `/tr/`, `/tr/about/`, `/tr/projects/`, etc. | Turkish versions of every portfolio page, including project details |
 
 `src/layouts/BaseLayout.astro` centralizes metadata and shared structure. Reusable UI is in `src/components/`, the design system in `src/styles/global.css`, and browser behavior in `src/scripts/site.ts`.
+
+The EN/TR links in the shared header switch to the equivalent page. Turkish navigation keeps the `/tr/` prefix, including when JavaScript or browser storage is unavailable. Each language has its own `lang`, canonical URL, description, Open Graph locale, and alternate-language links. Shared translations live in `src/i18n.ts`; Turkish project content lives in `src/content/projects-tr/` with matching slugs. The embedded IPRV application and external demo sites retain their own language controls.
 
 ### Editing content
 
 - Profile, navigation, and focus areas: `src/data/profile.ts`.
 - Project frontmatter and body: `src/content/projects/*.md`.
 - Validated collection schema: `src/content.config.ts`.
-- A new Markdown project automatically gets a detail route and joins the index. Set `featured: true` to include it on Home; `order` controls sorting. `repository` and `demo` are optional valid URLs. Omitted URLs produce a non-clickable status, never a dead button.
+- A new Markdown project automatically gets a detail route and joins the Projects index; add its Turkish counterpart with the same slug in `src/content/projects-tr/`. `order` controls sorting. `repository` and `demo` are optional valid URLs. Omitted URLs produce a non-clickable status, never a dead button.
 - SOC Decision Lab remains an in-progress academic project. MILP is under consideration; the site does not claim an implemented/validated optimizer or production results.
 - Research Explorer is explicitly a working label. No repository/deployment URL is invented.
 - For Phase 2, add a separate typed article collection and `src/pages/blog/[slug].astro` using the existing project collection/render pattern and `BaseLayout`. Add lab entries similarly. Publish only actual articles; there are no fabricated seed posts.

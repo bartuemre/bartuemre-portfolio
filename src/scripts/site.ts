@@ -1,3 +1,5 @@
+const labels: Record<string, string> = { 'Switch to light theme': 'Açık temaya geç', 'Switch to dark theme': 'Koyu temaya geç', 'Open navigation': 'Menüyü aç', 'Close navigation': 'Menüyü kapat' };
+const t = (label: string) => document.documentElement.lang === 'tr' ? labels[label] ?? label : label;
 const root = document.documentElement;
 const themeButton = document.querySelector<HTMLButtonElement>('#theme-toggle');
 const systemTheme = matchMedia('(prefers-color-scheme: dark)');
@@ -5,7 +7,7 @@ let hasPreference = false;
 try { hasPreference = ['light', 'dark'].includes(localStorage.getItem('portfolio-theme') ?? ''); } catch {}
 function setTheme(theme: string) {
   root.dataset.theme = theme;
-  themeButton?.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+  themeButton?.setAttribute('aria-label', t(`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`));
 }
 setTheme(root.dataset.theme ?? (systemTheme.matches ? 'dark' : 'light'));
 if (themeButton) {
@@ -21,10 +23,10 @@ systemTheme.addEventListener('change', (event) => { if (!hasPreference) setTheme
 
 const menuButton = document.querySelector<HTMLButtonElement>('#menu-toggle');
 const nav = document.querySelector<HTMLElement>('#primary-navigation');
-const mobile = matchMedia('(max-width: 800px)');
+const mobile = matchMedia('(max-width: 1000px)');
 function closeMenu(returnFocus = false) {
   menuButton?.setAttribute('aria-expanded', 'false');
-  menuButton?.setAttribute('aria-label', 'Open navigation');
+  menuButton?.setAttribute('aria-label', t('Open navigation'));
   if (nav) nav.hidden = mobile.matches;
   if (returnFocus) menuButton?.focus();
 }
@@ -34,7 +36,7 @@ if (menuButton && nav) {
   menuButton.addEventListener('click', () => {
     const open = menuButton.getAttribute('aria-expanded') !== 'true';
     menuButton.setAttribute('aria-expanded', String(open));
-    menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    menuButton.setAttribute('aria-label', t(open ? 'Close navigation' : 'Open navigation'));
     nav.hidden = !open;
   });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') closeMenu(true); });

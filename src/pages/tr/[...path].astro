@@ -1,0 +1,24 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Home from '../index.astro';
+import About from '../about.astro';
+import Projects from '../projects/index.astro';
+import Project from '../../components/ProjectDetail.astro';
+import Contact from '../contact.astro';
+import Lab from '../lab.astro';
+import Blog from '../blog/index.astro';
+
+export async function getStaticPaths() {
+  const pages = [undefined, 'about', 'projects', 'contact', 'lab', 'blog'];
+  const projects = await getCollection('projectsTr');
+  return [
+    ...pages.map(path => ({ params: { path }, props: { page: path ?? 'home' } })),
+    ...projects.map(project => ({ params: { path: `projects/${project.id}` }, props: { page: 'project', project } })),
+  ];
+}
+interface Props { page: string; project?: CollectionEntry<'projectsTr'>; }
+const { page, project } = Astro.props;
+const pages = { home: Home, about: About, projects: Projects, contact: Contact, lab: Lab, blog: Blog };
+const Page = pages[page as keyof typeof pages];
+---
+{project ? <Project project={project} /> : <Page />}

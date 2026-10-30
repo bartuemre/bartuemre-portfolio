@@ -1,16 +1,19 @@
 ---
+import { localeFromPath, translator, localizedPath } from '../i18n';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import Detective from '../components/Detective.astro';
 import { profile } from '../data/profile';
 import '../styles/global.css';
 interface Props { title: string; description?: string; noindex?: boolean; }
 const { title, description = profile.description, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, profile.site);
 const fullTitle = `${title} | ${profile.name}`;
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
 ---
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,31 +23,38 @@ const fullTitle = `${title} | ${profile.name}`;
         try { saved = localStorage.getItem('portfolio-theme'); } catch {}
         const theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.dataset.theme = theme;
+        let motion;
+        try { motion = localStorage.getItem('portfolio-motion'); } catch {}
+        document.documentElement.dataset.motion = motion === 'paused' || matchMedia('(prefers-reduced-motion: reduce)').matches ? 'paused' : 'running';
       })();
     </script>
     <title>{fullTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={t(description)} />
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <link rel="canonical" href={canonical} />
+    {!noindex && <>
+      <link rel="alternate" hreflang="en" href={new URL(localizedPath(Astro.url.pathname, 'en'), profile.site)} />
+      <link rel="alternate" hreflang="tr" href={new URL(localizedPath(Astro.url.pathname, 'tr'), profile.site)} />
+      <link rel="alternate" hreflang="x-default" href={new URL(localizedPath(Astro.url.pathname, 'en'), profile.site)} />
+    </>}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="/fonts/space-grotesk-v22-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-v23-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={profile.name} />
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={t(description)} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={locale === 'tr' ? 'tr_TR' : 'en_US'} />
     <meta name="twitter:card" content="summary" />
     <meta name="theme-color" content="#171415" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#FAF7F5" media="(prefers-color-scheme: light)" />
   </head>
   <body id="top">
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content">{t("Skip to content")}</a>
     <Navbar />
     <main id="main-content" tabindex="-1"><slot /></main>
     <Footer />
-    <Detective />
     <script src="../scripts/site.ts"></script>
   </body>
 </html>

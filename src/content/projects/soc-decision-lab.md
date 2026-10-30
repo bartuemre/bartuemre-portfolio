@@ -3,6 +3,7 @@ title: SOC Decision Lab
 summary: Exploring how security teams can prioritize alerts and assign analysts under real-world constraints.
 category: Security & optimization
 status: Academic project · In progress
+stage: in-progress
 tags: [SOC workflows, Decision support, Optimization]
 featured: true
 order: 1

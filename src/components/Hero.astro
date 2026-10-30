@@ -1,12 +1,19 @@
 ---
+import { localeFromPath, translator, localizedPath } from '../i18n';
 import Icon from './Icon.astro';
 import AnimatedBackground from './AnimatedBackground.astro';
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
+const href = (path: string) => localizedPath(path, locale);
 ---
 <section class="hero container" aria-labelledby="hero-title">
   <div class="hero-copy">
-    <h1 id="hero-title">Curious by nature.<br />Building with<br /><span class="accent-text">purpose.</span></h1>
-    <p class="hero-description">Cybersecurity, software, and optimization.</p>
-    <div class="button-row"><a class="button button-primary" href="/projects/">View projects <Icon /></a><a class="button button-quiet" href="/about/">About me <Icon name="external" /></a></div>
+    <p class="eyebrow"><span class="tiny-line"></span>{t('BARTU EMRE / PORTFOLIO')}</p>
+    <h1 id="hero-title"><span class="hero-title-line">{t("Curious by nature.")}</span><span class="hero-title-line">{t("Building with")} <span class="accent-text">{t("purpose.")}</span></span></h1>
+    <p class="hero-description">{t("Cybersecurity, software, and optimization.")}</p>
+    <p class="hero-role">{t('Industrial Engineering student')}</p>
+    <div class="button-row"><a class="button button-primary" href={href("/projects/")}>{t("View projects")} <Icon /></a><a class="button button-quiet" href={href("/about/")}>{t("About me")} <Icon /></a></div>
   </div>
   <AnimatedBackground />
 </section>

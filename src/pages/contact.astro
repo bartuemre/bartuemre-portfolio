@@ -1,10 +1,14 @@
 ---
+import { localeFromPath, translator } from '../i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeading from '../components/PageHeading.astro';
 import Icon from '../components/Icon.astro';
 import { profile } from '../data/profile';
+
+const locale = localeFromPath(Astro.url.pathname);
+const t = translator(locale);
 ---
-<BaseLayout title="Contact" description="Find Bartu Emre on GitHub and explore his work in cybersecurity, software, and optimization.">
-  <PageHeading eyebrow="CONTACT / START A CONVERSATION" title="Good work starts with curiosity." description="If our interests overlap — security, software, or optimization — explore what I'm working on and find me on GitHub." />
-  <section class="container contact-grid section-bottom" aria-labelledby="find-me"><div><h2 id="find-me">Find me online<span class="accent-text">.</span></h2><p class="section-intro mt-4">My public projects and profile,<br />in one place.</p></div><div class="contact-links"><a class="contact-link" href={profile.github} target="_blank" rel="noopener noreferrer"><div><span class="eyebrow">CODE & PROJECTS</span><h3>GitHub</h3><span>github.com/bartuemre</span></div><Icon name="external" size={30} /><span class="sr-only"> (opens in a new tab)</span></a>{profile.linkedin && <a class="contact-link" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <Icon name="external" /><span class="sr-only"> (opens in a new tab)</span></a>}{profile.email && <a class="contact-link" href={`mailto:${profile.email}`}>{profile.email}<Icon name="arrow" /></a>}{profile.resume && <a class="contact-link" href={profile.resume}>View résumé <Icon /></a>}<p class="collection-note">Additional contact details will appear here when available.</p></div></section>
+<BaseLayout title={t("Contact")} description={t("Find Bartu Emre on GitHub and explore his work in cybersecurity, software, and optimization.")}>
+  <PageHeading eyebrow={t("CONTACT / START A CONVERSATION")} title={t("Good work starts with curiosity.")} description={t("If our interests overlap — security, software, or optimization — explore what I'm working on and find me on GitHub.")} />
+  <section class="container contact-grid section-bottom" aria-labelledby="find-me"><div><h2 id="find-me">{t("Find me online")}<span class="accent-text">.</span></h2><p class="section-intro mt-4">{t("My public projects and profile,")}<br />{t("in one place.")}</p></div><div class="contact-links"><a class="contact-link" href={profile.github} target="_blank" rel="noopener noreferrer"><div><span class="eyebrow">{t("CODE & PROJECTS")}</span><h3>GitHub</h3><span>github.com/bartuemre</span></div><Icon name="external" size={30} /><span class="sr-only"> {t("(opens in a new tab)")}</span></a>{profile.linkedin && <a class="contact-link" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <Icon name="external" /><span class="sr-only"> {t("(opens in a new tab)")}</span></a>}{profile.email && <a class="contact-link" href={`mailto:${profile.email}`}>{profile.email}<Icon name="arrow" /></a>}{profile.resume && <a class="contact-link" href={profile.resume}>{t("View résumé")} <Icon /></a>}<p class="collection-note">{t("Additional contact details will appear here when available.")}</p></div></section>
 </BaseLayout>
