@@ -18,4 +18,6 @@ Keep the existing `bartuemre-portfolio` Pages project and its apex/www domains. 
 
 The Render API configuration in `iprv-backend/render.yaml` permits both `https://bartuemre.com` and `https://iprv.bartuemre.com` as exact browser origins. The backend package includes the new network lookup endpoint used by the latest frontend.
 
+The WHOIS/DNS lookup controls require `IPRV_ALLOW_EXTERNAL=true` on the running Render service. The source catalog's manual Sync controls require `IPRV_ALLOW_FEED_DOWNLOADS=true`. Both values are declared in `iprv-backend/render.yaml`; after deployment, check `/api/status` for `external_enabled: true` and `feed_downloads_enabled: true`. Provider lookups that require AbuseIPDB or ThreatFox keys remain unavailable until those keys are configured separately.
+
 Verified: the subdomain document and static assets return HTTP 200, the API preflight permits the new origin, and a browser analysis of documentation address `192.0.2.1` completed with the expected non-global result. The portfolio's project status now reflects the live workspace.

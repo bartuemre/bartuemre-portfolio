@@ -21,8 +21,8 @@ services:
       - key: IPRV_ADDITIONAL_FRONTEND_ORIGIN
         value: https://iprv.bartuemre.com
       - key: IPRV_ALLOW_EXTERNAL
-        value: "false"
+        value: "true"
       - key: IPRV_ALLOW_FEED_DOWNLOADS
-        value: "false"
+        value: "true"
       - key: IPRV_AUTO_SYNC
         value: "false"
