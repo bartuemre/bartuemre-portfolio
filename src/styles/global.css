@@ -237,9 +237,11 @@ h3 { font-size: 1.6rem; }
 .collection-topline h2 { font-size: 1rem; letter-spacing: -.01em; }
 .collection-note { color: var(--muted); font-size: .78rem; margin-top: 25px; }
 .about-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 90px; padding-top: 25px; }
-.about-statement { border-top: 1px solid var(--line); padding-top: 30px; }
-.about-statement p { font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.6; letter-spacing: -.03em; margin-block: 28px; }
-.about-statement .microcopy { font-size: .55rem; }
+.about-facts { align-self: start; margin: 0; border-top: 1px solid var(--line); }
+.about-facts > div { padding-block: 25px; border-bottom: 1px solid var(--line); }
+.about-facts dt { color: var(--accent); font-family: var(--font-mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; }
+.about-facts dd { margin: 11px 0 0; font-family: var(--font-display); font-size: clamp(1.05rem, 1.8vw, 1.35rem); line-height: 1.45; }
+.about-github { display: block; }
 .prose { color: var(--muted); font-size: .98rem; line-height: 1.95; overflow-wrap: anywhere; }
 .prose h2 { color: var(--text); font-size: 1.65rem; margin-block: 40px 18px; }
 .prose h2:first-child { margin-top: 0; }
