@@ -6,8 +6,9 @@ export const profile = {
   role: 'Industrial Engineering Student · Blue Team & Detection Engineering Enthusiast',
   description: 'Industrial Engineering student exploring cybersecurity, detection engineering, software development, and optimization.',
   github: 'https://github.com/bartuemre',
+  tryhackme: 'https://tryhackme.com/p/ceobey',
   linkedin: '',
-  email: '',
+  email: 'bartuemre07@gmail.com',
   resume: '',
   portrait: '',
 };

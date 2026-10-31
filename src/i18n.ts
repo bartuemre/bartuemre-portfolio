@@ -62,7 +62,7 @@ const turkish: Record<string, string> = {
   'CONTACT / START A CONVERSATION': 'İLETİŞİM / BİR SOHBET BAŞLAT', 'Good work starts with curiosity.': 'İyi işler merakla başlar.',
   "If our interests overlap — security, software, or optimization — explore what I'm working on and find me on GitHub.": 'Güvenlik, yazılım ya da optimizasyon ilgi alanlarımız arasındaysa çalışmalarımı inceleyebilir, beni GitHub’da bulabilirsin.',
   'Find me online': 'Bana ulaş', 'My public projects and profile,': 'Açık projelerim ve profilim,', 'in one place.': 'tek bir yerde.',
-  'CODE & PROJECTS': 'KOD VE PROJELER', 'View résumé': 'Özgeçmişi gör', 'Additional contact details will appear here when available.': 'Diğer iletişim bilgileri eklendiğinde burada yer alacak.',
+  'CODE & PROJECTS': 'KOD VE PROJELER', 'CYBERSECURITY PRACTICE': 'SİBER GÜVENLİK PRATİĞİ', 'EMAIL': 'E-POSTA', 'Send an email': 'E-posta gönder', 'View résumé': 'Özgeçmişi gör',
   "A future home for Bartu Emre's Blue Team and detection engineering lab notes. No writeups published yet.": 'Bartu Emre’nin Blue Team ve tehdit tespit mühendisliği laboratuvar notları için bir alan. Henüz yazı yayımlanmadı.',
   'SECURITY LAB / LEARN BY EXPLORING': 'GÜVENLİK LABI / KEŞFEDEREK ÖĞREN', 'From observation to understanding.': 'Gözlemden anlayışa.',
   'A space for hands-on learning, questions, and technical notes on the defensive side of security.': 'Siber savunma üzerine uygulamalı öğrenme, sorular ve teknik notlar için bir alan.',
