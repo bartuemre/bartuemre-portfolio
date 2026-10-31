@@ -65,8 +65,14 @@ test('every generated internal link and local asset resolves', async () => {
 
 test('truthful publication states, indexing, and legacy preservation', async () => {
   const research = await readFile(path.join(dist, 'projects/research-explorer/index.html'), 'utf8');
-  assert.match(research, /Live GitHub Pages demo/);
-  assert.match(research, /https:\/\/bartuemre\.github\.io\/literatur-tarama\//);
+  assert.match(research, /https:\/\/bartuemre\.com\/literatur-tarama\//);
+  assert.match(research, /https:\/\/github\.com\/bartuemre\/literatur-tarama/);
+  assert.match(research, /not AI analysis or verification/);
+  const literatureApp = await readFile(path.join(dist, 'literatur-tarama/index.html'), 'utf8');
+  assert.match(literatureApp, /<title>Literatür Tarama \| Akademik Araştırma Aracı<\/title>/);
+  assert.match(literatureApp, /OpenAlex taranıyor/);
+  assert.match(literatureApp, /data-label/);
+  assert.ok(await stat(path.join(dist, 'literatur-tarama/favicon.svg')));
   const soc = await readFile(path.join(dist, 'projects/soc-decision-lab/index.html'), 'utf8');
   assert.match(soc, /not a general MILP solver/);
   assert.match(soc, /risk-weighted delay in starting an alert review/);

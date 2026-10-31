@@ -1,27 +1,25 @@
 ---
-title: Research Explorer
-summary: Literatür keşfini ve filtrelemeyi DOI, PDF ve CSV iş akışlarıyla bir araya getiren bir web uygulaması.
+title: Literatür Tarama
+summary: OpenAlex sonuçları, makale inceleme, kaynak bağlantıları ve CSV dışa aktarma sunan tarayıcı tabanlı akademik literatür aracı.
 category: Yazılım ve araştırma
-status: Yayında · GitHub Pages demosu
+status: Yayında · Tarayıcı uygulaması
 stage: demo
-demo: https://bartuemre.github.io/literatur-tarama/
-tags: [OpenAlex iş akışları, Literatür araştırması, Web uygulaması]
+demo: https://bartuemre.com/literatur-tarama/
+repository: https://github.com/bartuemre/literatur-tarama
+tags: [OpenAlex, Literatür tarama, Web uygulaması]
 featured: false
 order: 3
 visual: research
 ---
 
-## Fikir
+## Ne yapıyor?
 
-Research Explorer, OpenAlex tabanlı iş akışlarından yararlanan bir literatür araştırma web uygulamasının geçici adıdır. Literatür keşfini ve filtrelemeyi DOI, PDF ve CSV özellikleriyle birleştirir.
+Literatür Tarama, akademik yayınları tarayıcıda keşfetmeyi sağlar. Bir veya daha fazla arama sorgusu girip en eski yayın yılını ve sonuç sınırını seçerek OpenAlex'ten yayın kayıtlarını getirebilirsiniz. Sonuçlarda başlık, yayın yeri, yıl, atıf sayısı, DOI ve varsa açık erişim PDF bağlantısı gösterilir.
 
-## Odak alanları
+Kayıtları filtreleyebilir; seçtiğiniz bir makalenin yazarlarını, kurumlarını, mevcut özetini ve özette eşleşen yöntem terimlerini inceleyebilirsiniz. Seçilen bağlantılar topluca açılabilir veya kopyalanabilir; görünen sonuçlar CSV olarak indirilebilir. Araç ayrıca Google Scholar, DergiPark, ScienceDirect, Semantic Scholar ve YÖK Tez Merkezi için arama bağlantıları oluşturur.
 
-- OpenAlex tabanlı araştırma iş akışlarıyla literatürü keşfetmek.
-- Bir araştırma sorusunu daraltmak için sonuçları filtrelemek.
-- DOI referansları ve PDF özellikleriyle çalışmak.
-- Literatür araştırma iş akışında CSV özelliklerinden yararlanmak.
+## Güncel sürüm
 
-## Güncel durum
+Son sürüm, mobil uyumlu sonuç görünümü ve filtreleme sırasında korunan seçimlerle doğrudan bu sitede çalışır. Kaynak kodu depoda erişime açıktır. Canlı yayın araması için internet ve OpenAlex API erişimi gerekir; gerekiyorsa API anahtarı tarayıcıda girilebilir.
 
-Projenin adı ve kaynak kod deposu bilgileri netleşirken mevcut arayüz GitHub Pages demosu olarak erişime açıktır.
+İnceleme paneli OpenAlex üst verisini ve özet metnini kullanır. Yöntem terimleri basit metin eşleşmesiyle bulunur; **yapay zekâ analizi veya makalenin yöntemini doğrulama değildir**. Diğer akademik platformlarda kayıtlar doğrudan çekilmez, arama bağlantıları açılır. PDF bağlantısı yalnızca kaynakta mevcutsa gösterilir.
